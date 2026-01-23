@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIP VPN — Le VPN Inblocable | Identifiants Polymorphes</title>
+  <meta name="description" content="PIP VPN - Le seul VPN avec rotation d'IP toutes les 30 secondes. Fonctionne en Chine, Russie, Iran. Brevet FR2600251.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cyan: #00ffff;
+      --cyan-dim: rgba(0, 255, 255, 0.5);
+      --magenta: #ff0080;
+      --green: #00ff88;
+      --dark: #0a0a0f;
+      --dark-alt: #0d1117;
+    }
+
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--dark);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 30s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-orb.cyan {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 70%);
+      top: -200px;
+      right: -200px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .glow-orb.magenta {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 0, 128, 0.1) 0%, transparent 70%);
+      bottom: -100px;
+      left: -100px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.1); }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(10, 10, 15, 0.95), transparent);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      position: relative;
+    }
+
+    .logo-shield {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 10px var(--cyan));
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+      text-shadow: 0 0 20px var(--cyan);
+    }
+
+    .btn-download {
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-download::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-download:hover {
+      background: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    }
+
+    .btn-download:hover::before {
+      left: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      max-width: 1400px;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(255, 0, 128, 0.1);
+      border: 1px solid rgba(255, 0, 128, 0.4);
+      color: var(--magenta);
+      font-size: 11px;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .btn-primary {
+      padding: 18px 40px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      border: none;
+      color: var(--dark);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+    }
+
+    .btn-secondary {
+      padding: 18px 40px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Hero Logo Animation */
+    .hero-logo {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+
+    /* IP Nodes */
+    .ip-node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--cyan);
+      animation: nodeRotate 10s linear infinite;
+    }
+
+    .ip-node:nth-child(1) { animation-delay: 0s; }
+    .ip-node:nth-child(2) { animation-delay: -1.67s; }
+    .ip-node:nth-child(3) { animation-delay: -3.33s; }
+    .ip-node:nth-child(4) { animation-delay: -5s; }
+    .ip-node:nth-child(5) { animation-delay: -6.67s; }
+    .ip-node:nth-child(6) { animation-delay: -8.33s; }
+
+    @keyframes nodeRotate {
+      0% { 
+        transform: rotate(0deg) translateX(180px) rotate(0deg);
+        opacity: 1;
+        box-shadow: 0 0 20px var(--cyan);
+      }
+      50% {
+        opacity: 0.5;
+        box-shadow: 0 0 10px var(--cyan);
+      }
+      100% { 
+        transform: rotate(360deg) translateX(180px) rotate(-360deg);
+        opacity: 1;
+        box-shadow: 0 0 20px var(--cyan);
+      }
+    }
+
+    .rotating-ring {
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      border-radius: 50%;
+    }
+
+    .rotating-ring.outer {
+      border-top-color: var(--cyan);
+      border-right-color: var(--cyan);
+      filter: drop-shadow(0 0 20px var(--cyan));
+      animation: rotate 10s linear infinite;
+    }
+
+    .rotating-ring.middle {
+      inset: 30px;
+      border-bottom-color: var(--magenta);
+      border-left-color: var(--magenta);
+      filter: drop-shadow(0 0 15px var(--magenta));
+      animation: rotate 8s linear infinite reverse;
+    }
+
+    .rotating-ring.inner {
+      inset: 60px;
+      border: 2px dashed rgba(0, 255, 255, 0.3);
+      animation: rotate 15s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .shield {
+      position: absolute;
+      inset: 100px;
+      background: linear-gradient(135deg, rgba(0, 20, 20, 0.9), rgba(0, 40, 40, 0.9));
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), inset 0 0 40px rgba(0, 255, 255, 0.1);
+    }
+
+    .shield-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 10px var(--cyan));
+    }
+
+    .shield-sub {
+      font-size: 14px;
+      letter-spacing: 8px;
+      color: var(--green);
+      margin-top: 5px;
+    }
+
+    /* IP Display Animation */
+    .ip-display {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 20, 20, 0.9);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      padding: 15px 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .ip-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .ip-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 16px;
+      color: var(--cyan);
+      letter-spacing: 2px;
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 80px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: rgba(0, 20, 20, 0.6);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Features Section */
+    .features {
+      padding: 100px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-title p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: rgba(0, 20, 20, 0.6);
+      border: 1px solid rgba(0, 255, 255, 0.15);
+      padding: 40px 30px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: var(--cyan);
+      letter-spacing: 2px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.7;
+    }
+
+    /* Countries Section */
+    .countries {
+      padding: 100px 50px;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent, rgba(255, 0, 128, 0.03), transparent);
+    }
+
+    .country-badges {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .country-badge {
+      background: rgba(0, 20, 20, 0.8);
+      border: 1px solid rgba(255, 0, 128, 0.3);
+      padding: 30px 40px;
+      text-align: center;
+      min-width: 160px;
+      transition: all 0.3s ease;
+    }
+
+    .country-badge:hover {
+      border-color: var(--magenta);
+      box-shadow: 0 0 30px rgba(255, 0, 128, 0.2);
+      transform: scale(1.05);
+    }
+
+    .country-flag {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .country-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .country-status {
+      font-size: 12px;
+      color: var(--green);
+      letter-spacing: 1px;
+    }
+
+    /* Comparison Section */
+    .comparison {
+      padding: 100px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .comparison-table {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(0, 20, 20, 0.6);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .comparison-header {
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .comparison-header > div {
+      padding: 25px 30px;
+    }
+
+    .comparison-header > div:nth-child(2) {
+      background: linear-gradient(180deg, rgba(0, 255, 255, 0.1), transparent);
+      border-left: 1px solid rgba(0, 255, 255, 0.1);
+      border-right: 1px solid rgba(0, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .comparison-header > div:nth-child(3) {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .pip-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.05);
+    }
+
+    .comparison-row:last-child {
+      border-bottom: none;
+    }
+
+    .comparison-row.highlight {
+      background: rgba(0, 255, 255, 0.03);
+    }
+
+    .comparison-row > div {
+      padding: 18px 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .comparison-row > div:nth-child(2) {
+      justify-content: center;
+      border-left: 1px solid rgba(0, 255, 255, 0.05);
+      border-right: 1px solid rgba(0, 255, 255, 0.05);
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .comparison-row > div:nth-child(3) {
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .comparison-row > div:nth-child(3).bad {
+      color: #ff6b6b;
+    }
+
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      margin-right: 12px;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 120px 50px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.03), transparent);
+    }
+
+    .cta h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .cta h2 span {
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 600px;
+      margin: 0 auto 50px;
+      line-height: 1.8;
+    }
+
+    .download-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 30px;
+      background: rgba(0, 20, 20, 0.8);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .download-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--cyan);
+    }
+
+    .download-info {
+      text-align: left;
+    }
+
+    .platform {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .action {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 1px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 50px;
+      border-top: 1px solid rgba(0, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 1px;
+    }
+
+    .footer-patent {
+      font-size: 10px;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-header,
+      .comparison-row {
+        grid-template-columns: 150px 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 100px 20px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .logo-container {
+        width: 280px;
+        height: 280px;
+      }
+
+      .shield-text {
+        font-size: 32px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta h2 {
+        font-size: 32px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+      }
+
+      .comparison-header,
+      .comparison-row {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-header > div,
+      .comparison-row > div {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="glow-orb cyan"></div>
+  <div class="glow-orb magenta"></div>
+
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg class="logo-shield" viewBox="0 0 50 50">
+          <defs>
+            <linearGradient id="navShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00ffff"/>
+              <stop offset="100%" stop-color="#00ff88"/>
+            </linearGradient>
+          </defs>
+          <path d="M25 5 L45 12 L45 25 C45 38 35 45 25 48 C15 45 5 38 5 25 L5 12 Z"
+                fill="rgba(0,40,40,0.9)" stroke="url(#navShieldGrad)" stroke-width="2"/>
+          <text x="25" y="30" text-anchor="middle" fill="url(#navShieldGrad)" 
+                font-size="12" font-weight="900" font-family="Arial">PIP</text>
+        </svg>
+      </div>
+      <span class="logo-text">PIP VPN</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">FEATURES</a></li>
+      <li><a href="#countries">COVERAGE</a></li>
+      <li><a href="#comparison">COMPARE</a></li>
+      <li><a href="#download">DOWNLOAD</a></li>
+    </ul>
+    <button class="btn-download">TÉLÉCHARGER</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="hero-badge">⚡ NOUVELLE IP TOUTES LES 30 SECONDES</span>
+        <h1>
+          LE SEUL VPN<br>
+          <span class="highlight">INBLOCABLE</span>
+        </h1>
+        <p>
+          Technologie révolutionnaire de rotation d'IP qui change votre identité toutes les 30 secondes. 
+          Accédez à tout, partout. Aucun gouvernement ne peut vous arrêter.
+        </p>
+        <div class="hero-buttons">
+          <button class="btn-primary">ESSAI GRATUIT</button>
+          <button class="btn-secondary">VOIR LA DÉMO</button>
+        </div>
+      </div>
+      <div class="hero-logo">
+        <div class="logo-container">
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="rotating-ring outer"></div>
+          <div class="rotating-ring middle"></div>
+          <div class="rotating-ring inner"></div>
+          <div class="shield">
+            <span class="shield-text">PIP</span>
+            <span class="shield-sub">VPN</span>
+          </div>
+          <div class="ip-display">
+            <div class="ip-dot"></div>
+            <span class="ip-text" id="rotating-ip">192.168.42.***</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">30s</div>
+        <div class="stat-label">ROTATION IP</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">195+</div>
+        <div class="stat-label">PAYS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">LOGS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">BANDE PASSANTE</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="section-title">
+      <h2>PROTECTION NOUVELLE GÉNÉRATION</h2>
+      <p>Une technologie que les gouvernements ne peuvent pas vaincre</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>ROTATION D'IP</h3>
+        <p>Votre adresse IP change automatiquement toutes les 30 secondes, rendant impossible le traçage ou le blocage de votre connexion.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>CHIFFREMENT MILITAIRE</h3>
+        <p>Chiffrement ChaCha20-Poly1305 avec perfect forward secrecy. Même les ordinateurs quantiques ne peuvent pas décrypter vos données.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👻</div>
+        <h3>MODE FURTIF</h3>
+        <p>Notre trafic ressemble à du HTTPS normal. L'inspection profonde des paquets ne voit rien de suspect.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>ZÉRO LATENCE</h3>
+        <p>Protocole propriétaire qui maintient des vitesses fulgurantes même avec des changements d'IP constants. Streaming 4K sans problème.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚫</div>
+        <h3>AUCUN LOG</h3>
+        <p>Serveurs RAM uniquement. Pas de disques durs. À l'extinction, toutes les données disparaissent instantanément.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>RÉSEAU MESH</h3>
+        <p>Infrastructure décentralisée sans point de défaillance unique. Impossible à fermer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="countries" id="countries">
+    <div class="section-title">
+      <h2>FONCTIONNE LÀ OÙ LES AUTRES ÉCHOUENT</h2>
+      <p>Testé et prouvé dans les environnements les plus restrictifs</p>
+    </div>
+    <div class="country-badges">
+      <div class="country-badge">
+        <div class="country-flag">🇨🇳</div>
+        <div class="country-name">CHINE</div>
+        <div class="country-status">✓ CONTOURNÉ</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">🇷🇺</div>
+        <div class="country-name">RUSSIE</div>
+        <div class="country-status">✓ CONTOURNÉ</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">🇮🇷</div>
+        <div class="country-name">IRAN</div>
+        <div class="country-status">✓ CONTOURNÉ</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">🇰🇵</div>
+        <div class="country-name">CORÉE DU NORD</div>
+        <div class="country-status">✓ CONTOURNÉ</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">🇹🇷</div>
+        <div class="country-name">TURQUIE</div>
+        <div class="country-status">✓ CONTOURNÉ</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="comparison" id="comparison">
+    <div class="section-title">
+      <h2>POURQUOI CHOISIR PIP VPN ?</h2>
+      <p>La seule technologie de rotation IP qui rend le blocage impossible</p>
+    </div>
+    <div class="comparison-table">
+      <div class="comparison-header">
+        <div>FONCTIONNALITÉ</div>
+        <div><span class="pip-label">PIP VPN</span></div>
+        <div>Autres VPNs</div>
+      </div>
+      <div class="comparison-row highlight">
+        <div><span class="feature-dot"></span>Rotation IP</div>
+        <div>30 secondes</div>
+        <div class="bad">Aucune</div>
+      </div>
+      <div class="comparison-row highlight">
+        <div><span class="feature-dot"></span>Fonctionne en Chine</div>
+        <div>✓ Oui</div>
+        <div class="bad">✗ Non</div>
+      </div>
+      <div class="comparison-row highlight">
+        <div><span class="feature-dot"></span>Fonctionne en Russie</div>
+        <div>✓ Oui</div>
+        <div class="bad">✗ Non</div>
+      </div>
+      <div class="comparison-row">
+        <div>Chiffrement</div>
+        <div>ChaCha20-Poly1305</div>
+        <div>AES-256</div>
+      </div>
+      <div class="comparison-row">
+        <div>Politique No-Logs</div>
+        <div>✓ Garantie</div>
+        <div class="bad">? Peut-être</div>
+      </div>
+      <div class="comparison-row">
+        <div>Appareils simultanés</div>
+        <div>Illimités</div>
+        <div>5-10</div>
+      </div>
+      <div class="comparison-row">
+        <div>IP Dédiée</div>
+        <div>✓ Incluse</div>
+        <div class="bad">$ Supplément</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="download">
+    <h2>PRÊT À DEVENIR <span>INVISIBLE</span> ?</h2>
+    <p>Rejoignez des millions de personnes qui refusent d'être traquées, bloquées ou censurées. Votre liberté commence maintenant.</p>
+    <div class="download-buttons">
+      <a href="#" class="download-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        <div class="download-info">
+          <div class="platform">iOS</div>
+          <div class="action">Télécharger</div>
+        </div>
+      </a>
+      <a href="#" class="download-btn">
+        <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm3.35-4.31c.34.27.56.69.56 1.19s-.22.92-.56 1.19l-2.29 1.32-2.5-2.5 2.5-2.5 2.29 1.3zM6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/></svg>
+        <div class="download-info">
+          <div class="platform">Android</div>
+          <div class="action">Télécharger</div>
+        </div>
+      </a>
+      <a href="#" class="download-btn">
+        <svg viewBox="0 0 24 24"><path d="M3 12V6.75l6-1.32v6.48L3 12zm17-9v8.75l-10 .15V5.21L20 3zM3 13l6 .09v6.81l-6-1.15V13zm17 .25V22l-10-1.91V13.1l10 .15z"/></svg>
+        <div class="download-info">
+          <div class="platform">Windows</div>
+          <div class="action">Télécharger</div>
+        </div>
+      </a>
+      <a href="#" class="download-btn">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div class="download-info">
+          <div class="platform">macOS</div>
+          <div class="action">Télécharger</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">PIP VPN</div>
+        <div class="footer-patent">Brevet FR2600251 - Identifiants Polymorphes</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">CONFIDENTIALITÉ</a>
+        <a href="#">CONDITIONS</a>
+        <a href="#">CONTACT</a>
+        <a href="https://www.asemantix.tech" target="_blank">ASEMANTIX</a>
+      </div>
+      <div class="footer-copy">© 2026 PIP VPN - LA LIBERTÉ N'EST PAS OPTIONNELLE</div>
+    </div>
+  </footer>
+
+  <script>
+    // Animation de rotation des IPs
+    const ips = [
+      "192.168.42.***",
+      "10.0.117.***",
+      "172.16.88.***",
+      "203.45.67.***",
+      "156.78.234.***",
+      "89.123.45.***"
+    ];
+    let currentIP = 0;
+    const ipElement = document.getElementById('rotating-ip');
+
+    setInterval(() => {
+      currentIP = (currentIP + 1) % ips.length;
+      ipElement.style.opacity = '0';
+      setTimeout(() => {
+        ipElement.textContent = ips[currentIP];
+        ipElement.style.opacity = '1';
+      }, 300);
+    }, 3000);
+
+    ipElement.style.transition = 'opacity 0.3s ease';
+  </script>
+</body>
+</html>
