@@ -1,29 +1,42 @@
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PIP VPN — Le VPN Imblocable | Brevet FR2600251</title>
-  <meta name="description" content="PIP VPN utilise des identifiants polymorphes qui changent toutes les 30 secondes. Technologie brevetée française impossible à bloquer.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <title>PIP VPN — HARVEST NOW, DECRYPT NEVER | AION ASEMANTIX™</title>
+  <meta name="description" content="Le premier VPN asémantique au monde. Impénétrable, indéchiffrable, incorrélable. Technologie brevetée française.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     :root {
       --cyan: #00ffff;
       --cyan-dim: rgba(0, 255, 255, 0.5);
       --magenta: #ff0080;
       --green: #00ff88;
+      --orange: #ffaa00;
       --dark: #0a0a0f;
       --dark-alt: #0d1117;
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.7);
+      --text-dim: rgba(255, 255, 255, 0.5);
     }
+
     body {
-      font-family: 'Share Tech Mono', monospace;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--dark);
-      color: #fff;
+      color: var(--text);
       overflow-x: hidden;
+      line-height: 1.6;
     }
+
+    /* Animated background */
     .bg-grid {
       position: fixed;
       inset: 0;
@@ -35,10 +48,12 @@
       pointer-events: none;
       z-index: 0;
     }
+
     @keyframes gridMove {
       0% { transform: translate(0, 0); }
       100% { transform: translate(60px, 60px); }
     }
+
     .glow-orb {
       position: fixed;
       border-radius: 50%;
@@ -46,6 +61,7 @@
       pointer-events: none;
       z-index: 0;
     }
+
     .glow-orb.cyan {
       width: 600px;
       height: 600px;
@@ -54,6 +70,7 @@
       right: -200px;
       animation: float 8s ease-in-out infinite;
     }
+
     .glow-orb.magenta {
       width: 500px;
       height: 500px;
@@ -62,10 +79,28 @@
       left: -100px;
       animation: float 8s ease-in-out infinite reverse;
     }
+
     @keyframes float {
       0%, 100% { transform: translate(0, 0) scale(1); }
       50% { transform: translate(30px, -30px) scale(1.1); }
     }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes nodeGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* Navigation */
     nav {
       position: fixed;
       top: 0;
@@ -76,8 +111,9 @@
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      background: linear-gradient(to bottom, rgba(10, 10, 15, 0.95), transparent);
+      background: linear-gradient(to bottom, rgba(10, 10, 15, 0.98), transparent);
     }
+
     .logo {
       font-family: 'Orbitron', sans-serif;
       font-size: 24px;
@@ -87,38 +123,50 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 30px var(--cyan-dim);
     }
+
     .nav-links {
       display: flex;
       gap: 40px;
       list-style: none;
     }
+
     .nav-links a {
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 2px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
       transition: all 0.3s ease;
     }
+
     .nav-links a:hover {
       color: var(--cyan);
       text-shadow: 0 0 20px var(--cyan);
     }
-    .btn-download {
-      padding: 12px 28px;
-      background: transparent;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 2px;
+
+    .btn-cta {
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      border: none;
+      border-radius: 4px;
+      color: var(--dark);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
     }
-    .btn-download:hover {
-      background: rgba(0, 255, 255, 0.1);
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+
+    .btn-cta:hover {
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+      transform: translateY(-2px);
     }
+
+    /* =====================================================
+       HERO SECTION - Texte à gauche, Animation à droite
+       ===================================================== */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -128,98 +176,124 @@
       position: relative;
       z-index: 1;
     }
+
     .hero-content {
       display: flex;
       align-items: center;
       gap: 80px;
       max-width: 1400px;
     }
-    .hero-text { flex: 1; }
+
+    .hero-text {
+      flex: 1;
+    }
+
     .hero-badge {
       display: inline-block;
-      padding: 8px 20px;
+      padding: 10px 24px;
       background: rgba(255, 0, 128, 0.1);
       border: 1px solid rgba(255, 0, 128, 0.4);
+      border-radius: 30px;
       color: var(--magenta);
-      font-size: 11px;
-      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
       margin-bottom: 30px;
       animation: pulse 2s ease-in-out infinite;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
+
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 72px;
+      font-size: 56px;
       font-weight: 900;
       line-height: 1.1;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
     }
-    .hero h1 .highlight {
+
+    .hero h1 .line1 {
+      display: block;
+      color: #fff;
+    }
+
+    .hero h1 .line2 {
+      display: block;
       background: linear-gradient(135deg, var(--cyan), var(--green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.5));
     }
-    .hero p {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.6);
+
+    .hero-subtitle {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text-muted);
       line-height: 1.8;
       margin-bottom: 40px;
       max-width: 500px;
     }
+
     .hero-buttons {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
     }
+
     .btn-primary {
       padding: 18px 40px;
       background: linear-gradient(135deg, var(--cyan), var(--green));
       border: none;
+      border-radius: 4px;
       color: var(--dark);
       font-family: 'Orbitron', sans-serif;
       font-size: 14px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
-      display: inline-block;
     }
+
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+      box-shadow: 0 15px 50px rgba(0, 255, 255, 0.4);
     }
+
     .btn-secondary {
       padding: 18px 40px;
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      font-family: 'Share Tech Mono', monospace;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
       font-size: 14px;
-      letter-spacing: 2px;
+      font-weight: 700;
+      letter-spacing: 1px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
-      display: inline-block;
     }
+
     .btn-secondary:hover {
       border-color: var(--cyan);
       color: var(--cyan);
     }
+
+    /* Hero Logo Animation */
     .hero-logo {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
+
     .logo-container {
       position: relative;
       width: 400px;
       height: 400px;
     }
+
     .rotating-ring {
       position: absolute;
       inset: 0;
@@ -227,389 +301,1153 @@
       border-radius: 50%;
       animation: rotate 10s linear infinite;
     }
+
     .rotating-ring.outer {
       border-top-color: var(--cyan);
       border-right-color: var(--cyan);
       filter: drop-shadow(0 0 20px var(--cyan));
     }
+
     .rotating-ring.middle {
-      inset: 40px;
+      inset: 30px;
       border-bottom-color: var(--magenta);
       border-left-color: var(--magenta);
-      animation-direction: reverse;
-      animation-duration: 15s;
-    }
-    .rotating-ring.inner {
-      inset: 80px;
-      border-top-color: var(--green);
       animation-duration: 8s;
+      animation-direction: reverse;
+      filter: drop-shadow(0 0 15px var(--magenta));
     }
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+
+    .rotating-ring.inner {
+      inset: 60px;
+      border-top-color: var(--green);
+      border-right-color: var(--green);
+      animation-duration: 6s;
+      filter: drop-shadow(0 0 10px var(--green));
     }
+
     .shield {
       position: absolute;
-      inset: 100px;
-      background: linear-gradient(135deg, rgba(0, 20, 20, 0.9), rgba(0, 40, 40, 0.9));
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      inset: 90px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      background: linear-gradient(135deg, rgba(0, 30, 30, 0.9), rgba(0, 20, 20, 0.9));
+      clip-path: polygon(50% 0%, 100% 20%, 100% 70%, 50% 100%, 0% 70%, 0% 20%);
       border: 2px solid var(--cyan);
+      box-shadow: 0 0 60px rgba(0, 255, 255, 0.3), inset 0 0 60px rgba(0, 255, 255, 0.1);
     }
+
     .shield-text {
       font-family: 'Orbitron', sans-serif;
       font-size: 48px;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--cyan), var(--green));
+      background: linear-gradient(180deg, var(--cyan), var(--green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .shield-sub {
-      font-size: 16px;
-      color: var(--green);
+      font-size: 14px;
       letter-spacing: 8px;
+      color: var(--green);
       margin-top: 5px;
     }
+
+    /* IP Nodes - Positionnés autour des anneaux avec pulsation */
     .ip-node {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       background: var(--cyan);
       border-radius: 50%;
       box-shadow: 0 0 20px var(--cyan);
-      animation: nodeFloat 3s ease-in-out infinite;
+      animation: nodeGlow 2s ease-in-out infinite;
     }
-    .ip-node:nth-child(1) { top: 50%; left: 0; transform: translateY(-50%); animation-delay: 0s; }
-    .ip-node:nth-child(2) { top: 15%; left: 25%; animation-delay: 0.5s; }
-    .ip-node:nth-child(3) { top: 15%; right: 25%; animation-delay: 1s; }
-    .ip-node:nth-child(4) { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 1.5s; }
-    .ip-node:nth-child(5) { bottom: 15%; right: 25%; animation-delay: 2s; }
-    .ip-node:nth-child(6) { bottom: 15%; left: 25%; animation-delay: 2.5s; }
-    @keyframes nodeFloat {
-      0%, 100% { opacity: 0.5; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.5); }
+
+    .ip-node:nth-child(5) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+    .ip-node:nth-child(6) { top: 20%; right: 5%; animation-delay: 0.3s; }
+    .ip-node:nth-child(7) { bottom: 20%; right: 5%; animation-delay: 0.6s; }
+    .ip-node:nth-child(8) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.9s; }
+    .ip-node:nth-child(9) { bottom: 20%; left: 5%; animation-delay: 1.2s; }
+    .ip-node:nth-child(10) { top: 20%; left: 5%; animation-delay: 1.5s; }
+
+    @keyframes nodeGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
     }
-    
-    /* Stats */
-    .stats {
-      padding: 80px 50px;
+
+    /* =====================================================
+       SECTION: LA MENACE
+       ===================================================== */
+    .threat-section {
+      padding: 120px 50px;
       position: relative;
       z-index: 1;
+      background: linear-gradient(180deg, transparent, rgba(255, 0, 128, 0.03), transparent);
     }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-      max-width: 1200px;
+
+    .section-container {
+      max-width: 1000px;
       margin: 0 auto;
     }
-    .stat-card {
-      background: rgba(0, 20, 20, 0.6);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      padding: 40px 30px;
-      text-align: center;
-      transition: all 0.3s ease;
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--magenta);
+      margin-bottom: 20px;
+      text-transform: uppercase;
     }
-    .stat-card:hover {
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      line-height: 1.2;
+    }
+
+    .section-text {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .timeline {
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--magenta), var(--cyan));
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .timeline-year {
+      width: 60px;
+      height: 60px;
+      background: var(--dark);
+      border: 2px solid var(--magenta);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--magenta);
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+    }
+
+    .timeline-item:last-child .timeline-year {
       border-color: var(--cyan);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
-    .stat-number {
+
+    .timeline-content {
+      padding-top: 15px;
+    }
+
+    .timeline-content h4 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .timeline-content p {
+      font-size: 16px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .threat-box {
+      background: rgba(255, 0, 128, 0.05);
+      border: 1px solid rgba(255, 0, 128, 0.2);
+      border-left: 4px solid var(--magenta);
+      padding: 30px 40px;
+      margin-top: 50px;
+      border-radius: 4px;
+    }
+
+    .threat-box h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--magenta);
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .threat-box ul {
+      list-style: none;
+    }
+
+    .threat-box li {
+      font-size: 16px;
+      color: var(--text-muted);
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .threat-box li::before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: var(--magenta);
+      font-weight: bold;
+    }
+
+    /* =====================================================
+       SECTION: LA SOLUTION
+       ===================================================== */
+    .solution-section {
+      padding: 120px 50px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.02), transparent);
+    }
+
+    .solution-title {
       font-family: 'Orbitron', sans-serif;
       font-size: 48px;
       font-weight: 900;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .solution-title .line1 {
+      display: block;
+      color: #fff;
+    }
+
+    .solution-title .line2 {
+      display: block;
       background: linear-gradient(135deg, var(--cyan), var(--green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .stat-label {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 3px;
-      margin-top: 15px;
-    }
-    
-    /* Pricing */
-    .pricing {
-      padding: 100px 50px;
-      position: relative;
-      z-index: 1;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .section-title h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 42px;
-      font-weight: 900;
-      margin-bottom: 15px;
-    }
-    .section-title p {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 14px;
-      letter-spacing: 2px;
-    }
-    .pricing-grid {
+
+    .solution-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
+      gap: 25px;
       max-width: 900px;
-      margin: 0 auto;
-    }
-    .pricing-card {
-      background: rgba(0, 20, 20, 0.6);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .pricing-card:hover {
-      border-color: var(--cyan);
-      transform: translateY(-5px);
-    }
-    .pricing-card.featured {
-      border-color: var(--magenta);
-      background: rgba(255, 0, 128, 0.05);
-    }
-    .pricing-card.featured::before {
-      content: 'POPULAIRE';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--magenta), #ff4444);
-      padding: 5px 20px;
-      font-size: 10px;
-      letter-spacing: 2px;
-      border-radius: 20px;
-    }
-    .pricing-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .pricing-price {
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--cyan);
-      margin: 20px 0;
-    }
-    .pricing-price span {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-    .pricing-features {
-      list-style: none;
-      margin: 30px 0;
+      margin: 60px auto;
       text-align: left;
     }
-    .pricing-features li {
-      padding: 10px 0;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 14px;
-    }
-    .pricing-features li::before {
-      content: '✓ ';
-      color: var(--green);
-    }
-    .pricing-btn {
-      display: block;
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, var(--cyan), var(--green));
-      border: none;
-      color: var(--dark);
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      cursor: pointer;
-      border-radius: 10px;
-      text-decoration: none;
+
+    .solution-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 25px;
+      background: rgba(0, 255, 255, 0.03);
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      border-radius: 8px;
       transition: all 0.3s ease;
     }
-    .pricing-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+
+    .solution-item:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      transform: translateY(-3px);
     }
-    
-    /* Features */
-    .features {
-      padding: 100px 50px;
+
+    .solution-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .solution-item h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .solution-item p {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .solution-item .result {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .solution-highlight {
+      max-width: 700px;
+      margin: 50px auto 0;
+      padding: 40px;
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+
+    .solution-highlight p {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .solution-highlight strong {
+      color: var(--cyan);
+    }
+
+    /* =====================================================
+       SECTION: USP CARDS
+       ===================================================== */
+    .usp-section {
+      padding: 120px 50px;
       position: relative;
       z-index: 1;
     }
-    .features-grid {
+
+    .usp-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .usp-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .usp-header p {
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+
+    .usp-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 30px;
       max-width: 1200px;
       margin: 0 auto;
     }
-    .feature-card {
-      background: rgba(0, 20, 20, 0.6);
-      border: 1px solid rgba(0, 255, 255, 0.15);
-      border-radius: 15px;
+
+    .usp-card {
       padding: 40px 30px;
-      transition: all 0.3s ease;
+      background: rgba(0, 20, 30, 0.5);
+      border: 1px solid rgba(0, 255, 255, 0.15);
+      border-radius: 8px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .feature-card:hover {
+
+    .usp-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .usp-card:hover {
       border-color: var(--cyan);
+      box-shadow: 0 10px 50px rgba(0, 255, 255, 0.15);
       transform: translateY(-5px);
     }
-    .feature-icon {
-      font-size: 40px;
-      margin-bottom: 20px;
+
+    .usp-card:hover::before {
+      transform: scaleX(1);
     }
-    .feature-card h3 {
+
+    .usp-icon {
+      font-size: 48px;
+      margin-bottom: 25px;
+    }
+
+    .usp-card h3 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 16px;
+      font-size: 18px;
+      font-weight: 700;
       margin-bottom: 15px;
-      color: var(--cyan);
-    }
-    .feature-card p {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.7;
-    }
-    
-    /* CTA */
-    .cta {
-      padding: 100px 50px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.05), transparent);
-    }
-    .cta h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 42px;
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
-    .cta h2 span {
       background: linear-gradient(135deg, var(--cyan), var(--green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .cta p {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 16px;
-      margin-bottom: 40px;
+
+    .usp-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* USP spéciale - Provisioning */
+    .usp-card.highlight {
+      border-color: var(--magenta);
+      background: rgba(255, 0, 128, 0.05);
+    }
+
+    .usp-card.highlight::before {
+      background: linear-gradient(90deg, var(--magenta), var(--cyan));
+      transform: scaleX(1);
+    }
+
+    .usp-card.highlight h3 {
+      background: linear-gradient(135deg, var(--magenta), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* =====================================================
+       SECTION: DOUBLE ROTATION
+       ===================================================== */
+    .rotation-section {
+      padding: 120px 50px;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(0, 255, 255, 0.02), transparent, rgba(0, 255, 255, 0.02));
+    }
+
+    .rotation-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .rotation-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .rotation-header p {
+      font-size: 18px;
+      color: var(--text-muted);
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
     }
-    .download-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+
+    .rotation-visual {
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    .download-btn {
+
+    .rotation-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+
+    .rotation-table th {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .rotation-table td {
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .rotation-table tr:hover td {
+      background: rgba(0, 255, 255, 0.03);
+    }
+
+    .rotation-table .flag {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .rotation-table .location {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .rotation-table .identity {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--green);
+      background: rgba(0, 255, 136, 0.1);
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .rotation-table .observer {
+      font-style: italic;
+      color: var(--text-dim);
+    }
+
+    .rotation-result {
+      text-align: center;
+      padding: 40px;
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+
+    .rotation-result h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 15px;
+    }
+
+    .rotation-result p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .rotation-result strong {
+      color: var(--text);
+    }
+
+    /* =====================================================
+       SECTION: DEMO INTERACTIVE
+       ===================================================== */
+    .demo-section {
+      padding: 120px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .demo-header-section {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .demo-header-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .demo-header-section p {
+      font-size: 17px;
+      color: var(--text-dim);
+    }
+
+    .demo-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(0, 20, 20, 0.6);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .demo-window-header {
+      padding: 15px 20px;
+      background: rgba(0, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
       display: flex;
       align-items: center;
       gap: 15px;
+    }
+
+    .demo-window-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .demo-window-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .demo-window-dots span:nth-child(1) { background: #ff5f56; }
+    .demo-window-dots span:nth-child(2) { background: #ffbd2e; }
+    .demo-window-dots span:nth-child(3) { background: #27ca40; }
+
+    .demo-window-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .demo-body {
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Demo Connection Button */
+    .demo-connection-btn {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .demo-ring-outer {
+      position: absolute;
+      inset: 0;
+      border: 3px solid rgba(0, 255, 255, 0.4);
+      border-radius: 50%;
+      transition: all 0.5s ease;
+    }
+
+    .demo-ring-outer.connected {
+      border-color: var(--green);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+    }
+
+    .demo-ring-middle {
+      position: absolute;
+      inset: 12px;
+      border: 2px dashed rgba(0, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+    }
+
+    .demo-ring-middle.connected {
+      border-color: rgba(0, 255, 136, 0.4);
+    }
+
+    .demo-ring-inner {
+      position: absolute;
+      inset: 25px;
+      border: 2px solid rgba(0, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: rotate 8s linear infinite reverse;
+    }
+
+    .demo-ring-inner.connected {
+      border-color: rgba(0, 255, 136, 0.3);
+    }
+
+    .demo-center {
+      position: absolute;
+      inset: 40px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 136, 0.1));
+      border: 3px solid var(--cyan);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+      transition: all 0.5s ease;
+    }
+
+    .demo-center.connected {
+      border-color: var(--green);
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 255, 0.2));
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+    }
+
+    .demo-power-icon {
+      width: 32px;
+      height: 32px;
+      stroke: var(--cyan);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .demo-center.connected .demo-power-icon {
+      display: none;
+    }
+
+    .demo-countdown {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--green);
+      display: none;
+    }
+
+    .demo-center.connected .demo-countdown {
+      display: block;
+    }
+
+    .demo-countdown-label {
+      font-size: 8px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      display: none;
+    }
+
+    .demo-center.connected .demo-countdown-label {
+      display: block;
+    }
+
+    .demo-status-text {
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .demo-status-text.connected {
+      color: var(--green);
+    }
+
+    .demo-ip-display {
       padding: 15px 25px;
       background: rgba(0, 20, 20, 0.8);
       border: 1px solid rgba(0, 255, 255, 0.3);
-      border-radius: 12px;
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s ease;
+      border-radius: 8px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.5s ease;
     }
-    .download-btn:hover {
-      border-color: var(--cyan);
-      background: rgba(0, 255, 255, 0.1);
-      transform: translateY(-3px);
+
+    .demo-ip-display.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .download-btn svg {
-      width: 30px;
-      height: 30px;
-      fill: var(--cyan);
+
+    .demo-ip-label {
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      margin-bottom: 5px;
     }
-    .download-info .platform {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 1px;
-    }
-    .download-info .action {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
+
+    .demo-ip-value {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
       color: var(--cyan);
     }
-    
-    /* Footer */
-    footer {
-      padding: 50px;
-      border-top: 1px solid rgba(0, 255, 255, 0.1);
+
+    .demo-relay {
+      font-size: 12px;
+      color: var(--green);
+      margin-top: 8px;
+      padding: 4px 12px;
+      background: rgba(0, 255, 136, 0.1);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* =====================================================
+       SECTION: PAYS
+       ===================================================== */
+    .countries-section {
+      padding: 100px 50px;
       position: relative;
       z-index: 1;
     }
-    .footer-content {
+
+    .countries-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .countries-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .countries-header p {
+      font-size: 16px;
+      color: var(--text-dim);
+    }
+
+    .countries-grid {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      max-width: 900px;
       margin: 0 auto;
     }
-    .footer-logo {
+
+    .country-badge {
+      padding: 25px 35px;
+      background: rgba(0, 20, 30, 0.5);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .country-badge:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .country-flag {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .country-name {
       font-family: 'Orbitron', sans-serif;
-      font-size: 20px;
+      font-size: 13px;
       font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .country-status {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* =====================================================
+       SECTION: PRICING
+       ===================================================== */
+    .pricing-section {
+      padding: 120px 50px;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.02), transparent);
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .pricing-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .pricing-header p {
+      font-size: 16px;
+      color: var(--text-dim);
+    }
+
+    .pricing-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      flex: 1;
+      max-width: 350px;
+      padding: 50px 40px;
+      background: rgba(0, 20, 30, 0.5);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--cyan);
+      box-shadow: 0 0 50px rgba(0, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0, 255, 255, 0.2);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-5px);
+    }
+
+    .pricing-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      margin-bottom: 20px;
+    }
+
+    .pricing-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 30px;
+    }
+
+    .pricing-price span {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-dim);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 12px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .pricing-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      border: none;
+      border-radius: 6px;
+      color: var(--dark);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-btn:hover {
+      box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+    }
+
+    /* =====================================================
+       SECTION: CTA FINAL
+       ===================================================== */
+    .cta-section {
+      padding: 120px 50px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(255, 0, 128, 0.03), transparent);
+    }
+
+    .cta-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 42px;
+      font-weight: 900;
+      margin-bottom: 25px;
+      line-height: 1.2;
+    }
+
+    .cta-section h2 span {
       background: linear-gradient(135deg, var(--cyan), var(--green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    .cta-section > p {
+      font-size: 19px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 50px;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    footer {
+      padding: 60px 50px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     .footer-links {
       display: flex;
       gap: 30px;
     }
+
     .footer-links a {
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--text-dim);
       text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 2px;
+      font-size: 13px;
       transition: color 0.3s ease;
     }
+
     .footer-links a:hover {
       color: var(--cyan);
     }
+
     .footer-copy {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 1px;
+      font-size: 12px;
+      color: var(--text-dim);
     }
-    
-    /* Responsive */
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
     @media (max-width: 1024px) {
-      .hero-content { flex-direction: column; text-align: center; }
-      .hero h1 { font-size: 48px; }
-      .hero p { margin-left: auto; margin-right: auto; }
-      .hero-buttons { justify-content: center; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .features-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text {
+        order: 2;
+      }
+
+      .hero-logo {
+        order: 1;
+      }
+
+      .hero-subtitle {
+        margin: 0 auto 40px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .logo-container {
+        width: 300px;
+        height: 300px;
+      }
+
+      .shield-text {
+        font-size: 36px;
+      }
+
+      .usp-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .solution-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     @media (max-width: 768px) {
-      nav { padding: 20px; }
-      .nav-links { display: none; }
-      .hero { padding: 100px 20px; }
-      .hero h1 { font-size: 36px; }
-      .logo-container { width: 280px; height: 280px; }
-      .shield-text { font-size: 32px; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .cta h2 { font-size: 32px; }
-      .footer-content { flex-direction: column; gap: 30px; text-align: center; }
-      .section-title h2 { font-size: 28px; }
+      nav {
+        padding: 15px 25px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 100px 25px 60px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-subtitle {
+        font-size: 17px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .solution-title {
+        font-size: 32px;
+      }
+
+      .usp-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .pricing-card.featured {
+        transform: none;
+      }
+
+      .rotation-table {
+        font-size: 12px;
+      }
+
+      .rotation-table th,
+      .rotation-table td {
+        padding: 15px 8px;
+      }
+
+      .logo-container {
+        width: 250px;
+        height: 250px;
+      }
+
+      .shield-text {
+        font-size: 28px;
+      }
+
+      .shield-sub {
+        font-size: 10px;
+        letter-spacing: 4px;
+      }
     }
   </style>
 </head>
@@ -618,41 +1456,42 @@
   <div class="glow-orb cyan"></div>
   <div class="glow-orb magenta"></div>
 
+  <!-- Navigation -->
   <nav>
-    <div class="logo">PIP VPN</div>
+    <div class="logo"><a href="https://asemantix.tech" style="color:inherit;text-decoration:none;">PIP VPN</a></div>
     <ul class="nav-links">
-      <li><a href="#features">FEATURES</a></li>
-      <li><a href="#pricing">PRICING</a></li>
-      <li><a href="mailto:asemantix@proton.me">CONTACT</a></li>
+      <li><a href="#threat">LA MENACE</a></li>
+      <li><a href="#solution">LA SOLUTION</a></li>
+      <li><a href="#features">FONCTIONNALITÉS</a></li>
+      <li><a href="#pricing">TARIFS</a></li>
+      <li><a href="https://asemantix.tech" target="_blank" style="color:#ffaa00;">ASEMANTIX</a></li>
+      <li><a href="https://asemantix.tech/brevets.html" target="_blank" style="color:#00ff88;">BREVETS</a></li>
     </ul>
-    <a href="https://github.com/asemantix/pip-vpn/releases" class="btn-download" target="_blank">TÉLÉCHARGER</a>
+    <a href="#pricing" class="btn-cta">COMMENCER</a>
   </nav>
 
+  <!-- HERO avec animation -->
   <section class="hero">
     <div class="hero-content">
       <div class="hero-text">
-        <span class="hero-badge">⚡ NOUVELLE IP TOUTES LES 30 SECONDES</span>
+        <div class="hero-badge">⚡ TECHNOLOGIE BREVETÉE FRANÇAISE</div>
         <h1>
-          LE SEUL VPN<br>
-          <span class="highlight">IMBLOCABLE</span>
+          <span class="line1">HARVEST NOW,</span>
+          <span class="line2">DECRYPT NEVER.</span>
         </h1>
-        <p>
-          Technologie révolutionnaire de rotation d'IP qui change votre identité toutes les 30 secondes. 
-          Accédez à tout, partout. Aucun gouvernement ne peut vous arrêter.
+        <p class="hero-subtitle">
+          Le premier VPN asémantique au monde.<br>
+          Impénétrable. Indéchiffrable. Incorrélable.
         </p>
         <div class="hero-buttons">
-          <a href="https://pipvpn.lemonsqueezy.com/checkout/buy/b5ecf1d9-13cb-4b8d-a3cb-a6411308e74c" class="btn-primary">COMMENCER MAINTENANT</a>
-          <a href="https://github.com/asemantix/pip-vpn" class="btn-secondary" target="_blank">CODE SOURCE</a>
+          <a href="#pricing" class="btn-primary">PROTÉGEZ-VOUS MAINTENANT</a>
+          <a href="#threat" class="btn-secondary">COMPRENDRE LA MENACE</a>
         </div>
       </div>
+
+      <!-- Animation Logo à droite -->
       <div class="hero-logo">
         <div class="logo-container">
-          <div class="ip-node"></div>
-          <div class="ip-node"></div>
-          <div class="ip-node"></div>
-          <div class="ip-node"></div>
-          <div class="ip-node"></div>
-          <div class="ip-node"></div>
           <div class="rotating-ring outer"></div>
           <div class="rotating-ring middle"></div>
           <div class="rotating-ring inner"></div>
@@ -660,49 +1499,317 @@
             <span class="shield-text">PIP</span>
             <span class="shield-sub">VPN</span>
           </div>
+          <!-- IP Nodes positionnés autour -->
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
+          <div class="ip-node"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="stats">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">30s</div>
-        <div class="stat-label">ROTATION IP</div>
+  <!-- SECTION: LA MENACE -->
+  <section class="threat-section" id="threat">
+    <div class="section-container">
+      <span class="section-label">⚠️ La menace</span>
+      <h2 class="section-title">Ils stockent vos données aujourd'hui<br>pour les décrypter demain.</h2>
+      <p class="section-text">
+        C'est la stratégie <strong>"Harvest Now, Decrypt Later"</strong> utilisée par les agences 
+        de renseignement du monde entier. La NSA, le GCHQ, et d'autres interceptent et stockent 
+        massivement le trafic VPN chiffré — en attendant.
+      </p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-content">
+            <h4>La NSA intercepte et STOCKE votre trafic VPN</h4>
+            <p>Des data centers entiers dédiés au stockage massif de données chiffrées. Votre trafic "protégé" y est archivé.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2029</div>
+          <div class="timeline-content">
+            <h4>IBM Starling — Ordinateur quantique mature</h4>
+            <p>Les algorithmes de Shor permettront de casser RSA et les courbes elliptiques en quelques heures.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2030</div>
+          <div class="timeline-content">
+            <h4>Vos données de 2024 sont DÉCRYPTÉES</h4>
+            <p>Tout ce que vous avez fait, dit, visité — accessible en clair. Rétroactivement.</p>
+          </div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">4</div>
-        <div class="stat-label">RÉGIONS</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">0</div>
-        <div class="stat-label">LOGS</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">🇫🇷</div>
-        <div class="stat-label">BREVETÉ FR2600251</div>
+
+      <div class="threat-box">
+        <h4>LES VPN TRADITIONNELS SONT OBSOLÈTES</h4>
+        <ul>
+          <li>RSA, OpenVPN, WireGuard — technologies des années 2000</li>
+          <li>IP de sortie unique par session — identité cryptographique corrélable et en clair</li>
+          <li>Signatures protocolaires reconnaissables par DPI et classification ML</li>
+          <li>Vulnérables aux ordinateurs quantiques — harvest now, decrypt later</li>
+          <li>Votre "protection" d'aujourd'hui = votre faille de demain</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="pricing" id="pricing">
-    <div class="section-title">
-      <h2>TARIFS SIMPLES</h2>
+  <!-- SECTION: LA SOLUTION -->
+  <section class="solution-section" id="solution">
+    <div class="section-container">
+      <span class="section-label">✅ La solution</span>
+      <h2 class="solution-title">
+        <span class="line1">HARVEST NOW,</span>
+        <span class="line2">DECRYPT NEVER.</span>
+      </h2>
+      <p class="section-text" style="text-align: center; max-width: 700px; margin: 0 auto 40px;">
+        PIP VPN renverse le paradigme. Même avec un ordinateur quantique,<br>
+        vos données restent <strong>inexploitables</strong>.
+      </p>
+
+      <div class="solution-grid">
+        <div class="solution-item">
+          <div class="solution-icon">👁️</div>
+          <div>
+            <h4>Ils stockent ?</h4>
+            <p>Ils ne <span class="result">VOIENT même pas</span> que c'est un VPN.</p>
+          </div>
+        </div>
+        <div class="solution-item">
+          <div class="solution-icon">🔓</div>
+          <div>
+            <h4>Ils décryptent ?</h4>
+            <p>Ils ne trouvent que des <span class="result">données sans signification</span> — impossibles à exploiter.</p>
+          </div>
+        </div>
+        <div class="solution-item">
+          <div class="solution-icon">🔗</div>
+          <div>
+            <h4>Ils corrèlent ?</h4>
+            <p><span class="result">3 IP / heure, 2 identités crypto / minute</span> — aucun lien entre elles.</p>
+          </div>
+        </div>
+        <div class="solution-item">
+          <div class="solution-icon">👤</div>
+          <div>
+            <h4>Ils exploitent ?</h4>
+            <p><span class="result">Un coffre-fort vide</span> — sans savoir à qui il appartient. Aucun contexte exploitable.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-highlight">
+        <p>
+          Pourquoi ? <strong>L'ASÉMANTICITÉ</strong>.<br>
+          Capter vos informations aujourd'hui revient à détenir la clé d'un coffre-fort vide, sans savoir à qui il appartenait.<br>
+          Aucun contexte à exploiter — ni par les ordinateurs quantiques, ni par l'IA.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: USP CARDS -->
+  <section class="usp-section" id="features">
+    <div class="usp-header">
+      <h2>Pourquoi PIP VPN est différent</h2>
+      <p>Technologie brevetée, impossible à reproduire</p>
+    </div>
+
+    <div class="usp-grid">
+      <div class="usp-card">
+        <div class="usp-icon">👻</div>
+        <h3>INVISIBLE</h3>
+        <p>Le seul VPN que les pare-feux ne peuvent pas voir. Votre trafic ressemble à Discord, un jeu, ou Netflix.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon">🎭</div>
+        <h3>ASÉMANTIQUE</h3>
+        <p>Aucun identifiant n'est transmis. Le trafic n'a pas de structure reconnaissable — juste des données sans signification.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon">🌍</div>
+        <h3>ROTATION CRYPTOGRAPHIQUE</h3>
+        <p>IP de sortie modifiable toutes les 20 min. Identité cryptographique asémantique et unique toutes les 30 secondes. Jamais deux fragments ne se ressemblent.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon">🛡️</div>
+        <h3>ANTI-DDOS NATIF</h3>
+        <p>Les attaquants sont ignorés en microsecondes. Sans la clé, impossible de créer un paquet valide.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon">📵</div>
+        <h3>ZÉRO LOGS</h3>
+        <p>Pas une promesse — une impossibilité technique. Même nous ne pouvons pas savoir qui vous êtes.</p>
+      </div>
+      
+      <!-- USP SPÉCIALE : Provisioning sans tiers -->
+      <div class="usp-card highlight">
+        <div class="usp-icon">🔐</div>
+        <h3>AUCUN TIERS</h3>
+        <p>Après paiement, l'app et vos codes sont téléchargés <strong>directement sur votre disque dur</strong> — sans aucun passage par Internet, sans email, sans cloud. Vous pouvez même utiliser une adresse email fictive à l'achat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: DOUBLE ROTATION -->
+  <section class="rotation-section">
+    <div class="rotation-header">
+      <h2>Rotation Cryptographique Complète</h2>
+      <p>Pour un observateur externe, chaque fragment est unique et incorrélable — sans la clé racine, aucun lien n'existe entre deux échanges successifs.</p>
+    </div>
+
+    <div class="rotation-visual">
+      <table class="rotation-table">
+        <thead>
+          <tr>
+            <th>TEMPS</th>
+            <th>IP DE SORTIE</th>
+            <th>IDENTITÉ CRYPTOGRAPHIQUE</th>
+            <th>CE QUE VOIT UN OBSERVATEUR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0 – 30s</td>
+            <td>185.42.xxx.xxx</td>
+            <td><span class="identity">K₀ + M₀</span></td>
+            <td class="observer">Fragment aléatoire #1</td>
+          </tr>
+          <tr>
+            <td>30s – 60s</td>
+            <td>185.42.xxx.xxx</td>
+            <td><span class="identity">K₁ + M₁</span></td>
+            <td class="observer">Fragment aléatoire #2 — aucun lien avec #1</td>
+          </tr>
+          <tr style="border-top: 2px solid rgba(0,255,255,0.3);">
+            <td>20 min</td>
+            <td style="color: #00ff88;">44.198.xxx.xxx ← nouvelle IP</td>
+            <td><span class="identity">K₄₀ + M₄₀</span></td>
+            <td class="observer">Autre utilisateur, autre lieu</td>
+          </tr>
+          <tr>
+            <td>40 min</td>
+            <td style="color: #00ff88;">103.75.xxx.xxx ← nouvelle IP</td>
+            <td><span class="identity">K₈₀ + M₈₀</span></td>
+            <td class="observer">Encore un autre — corrélation impossible</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="rotation-result">
+        <h4>DEUX ROTATIONS INDÉPENDANTES</h4>
+        <p>
+          <strong>IP de sortie</strong> : change toutes les <strong>20 minutes</strong> — 3 IP distinctes par heure.<br>
+          <strong>Identité cryptographique</strong> : change toutes les <strong>30 secondes</strong> — 2 par minute, 120 par heure.<br>
+          Les marqueurs polymorphes réduisent <strong>99% du bruit computationnel</strong>.<br>
+          Sans la K_root, chaque fragment est un coffre-fort vide dont personne ne connaît le propriétaire.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: DEMO INTERACTIVE -->
+  <section class="demo-section" id="demo">
+    <div class="demo-header-section">
+      <h2>Démo Interactive</h2>
+      <p>Voyez la rotation cryptographique en action</p>
+    </div>
+
+    <div class="demo-container">
+      <div class="demo-window-header">
+        <div class="demo-window-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="demo-window-title">PIP VPN — DÉMO</div>
+      </div>
+
+      <div class="demo-body">
+        <button class="demo-connection-btn" id="demoBtn" onclick="toggleDemo()">
+          <div class="demo-ring-outer" id="demoRingOuter"></div>
+          <div class="demo-ring-middle" id="demoRingMiddle"></div>
+          <div class="demo-ring-inner" id="demoRingInner"></div>
+          <div class="demo-center" id="demoCenter">
+            <svg class="demo-power-icon" viewBox="0 0 24 24">
+              <path d="M12 2v10M18.4 6.6a9 9 0 1 1-12.8 0" stroke-linecap="round"/>
+            </svg>
+            <span class="demo-countdown" id="demoCountdown">30</span>
+            <span class="demo-countdown-label">ROTATION</span>
+          </div>
+        </button>
+
+        <div class="demo-status-text" id="demoStatus">CLIQUEZ POUR CONNECTER</div>
+
+        <div class="demo-ip-display" id="demoIpDisplay">
+          <div class="demo-ip-label">VOTRE IP ACTUELLE</div>
+          <div class="demo-ip-value" id="demoIp">185.42.xxx.xxx</div>
+          <div class="demo-relay" id="demoRelay">🇪🇺 Europe</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: PROTECTION RÉELLE -->
+  <section class="countries-section">
+    <div class="countries-header">
+      <h2>Ce que PIP VPN protège réellement</h2>
+      <p>Impénétrable, indéchiffrable, incorrélable — même face aux menaces futures</p>
+    </div>
+
+    <div class="countries-grid">
+      <div class="country-badge">
+        <div class="country-flag">🔒</div>
+        <div class="country-name">IMPÉNÉTRABLE</div>
+        <div class="country-status">Sans K_root, aucun accès</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">🧬</div>
+        <div class="country-name">INDÉCHIFFRABLE</div>
+        <div class="country-status">Post-quantique ready</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">👻</div>
+        <div class="country-name">INCORRÉLABLE</div>
+        <div class="country-status">Aucun lien entre fragments</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">📭</div>
+        <div class="country-name">ASÉMANTIQUE</div>
+        <div class="country-status">Zéro métadonnée en clair</div>
+      </div>
+      <div class="country-badge">
+        <div class="country-flag">⚡</div>
+        <div class="country-name">EFFICIENT</div>
+        <div class="country-status">99% du bruit filtré sans crypto</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-header">
+      <h2>Tarifs simples</h2>
       <p>Pas d'engagement. Annulez quand vous voulez.</p>
     </div>
+
     <div class="pricing-grid">
       <div class="pricing-card">
         <div class="pricing-name">STANDARD</div>
         <div class="pricing-price">9.99€<span>/mois</span></div>
         <ul class="pricing-features">
-          <li>Rotation IP toutes les 30s</li>
+          <li>Rotation cryptographique identité (30s) + IP (20min)</li>
           <li>4 régions (Europe, USA, Asie)</li>
           <li>Chiffrement ChaCha20-Poly1305</li>
           <li>Bande passante illimitée</li>
           <li>Support par email</li>
         </ul>
-        <a href="https://pipvpn.lemonsqueezy.com/checkout/buy/b5ecf1d9-13cb-4b8d-a3cb-a6411308e74c" class="pricing-btn">CHOISIR</a>
+        <a href="https://asemantix.lemonsqueezy.com/buy/standard" class="pricing-btn" target="_blank">CHOISIR</a>
       </div>
       <div class="pricing-card featured">
         <div class="pricing-name">CLOAK</div>
@@ -710,92 +1817,118 @@
         <ul class="pricing-features">
           <li>Tout Standard inclus</li>
           <li>Camouflage CLOAK activé</li>
-          <li>Mode Netflix sans blocage</li>
-          <li>Mode Gaming (faible latence)</li>
-          <li>Anti-détection avancée</li>
+          <li>Mimétisme comportemental</li>
+          <li>Anti-détection IA avancée</li>
+          <li>Support prioritaire</li>
         </ul>
-        <a href="https://pipvpn.lemonsqueezy.com/checkout/buy/b5b6a71f-b9fe-4eb4-afdc-e6e7af4fc9cd" class="pricing-btn">CHOISIR</a>
+        <a href="https://asemantix.lemonsqueezy.com/buy/cloak" class="pricing-btn" target="_blank">CHOISIR</a>
       </div>
     </div>
   </section>
 
-  <section class="features" id="features">
-    <div class="section-title">
-      <h2>TECHNOLOGIE BREVETÉE</h2>
-      <p>Ce que les gouvernements ne peuvent pas bloquer</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h3>IDENTIFIANTS POLYMORPHES</h3>
-        <p>Votre identité réseau change automatiquement toutes les 30 secondes. Impossible de tracer ou bloquer.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛡️</div>
-        <h3>CHIFFREMENT MILITAIRE</h3>
-        <p>ChaCha20-Poly1305 avec clés dérivées SHAKE256. Même les ordinateurs quantiques ne peuvent pas casser.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">👻</div>
-        <h3>MODE FURTIF</h3>
-        <p>Le trafic ressemble à du HTTPS normal. L'inspection profonde de paquets ne voit rien de suspect.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>ZÉRO LATENCE</h3>
-        <p>Protocole propriétaire qui maintient des vitesses élevées malgré les changements d'IP constants.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🚫</div>
-        <h3>AUCUN LOG</h3>
-        <p>Serveurs RAM-only. Pas de disques durs. À l'extinction, toutes les données disparaissent.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌐</div>
-        <h3>MULTI-RÉGIONS</h3>
-        <p>Serveurs en Europe, USA et Asie. Rotation automatique entre les régions pour une meilleure anonymisation.</p>
-      </div>
-    </div>
+  <!-- SECTION: CTA FINAL -->
+  <section class="cta-section">
+    <h2>En 2029, il sera <span>trop tard</span>.</h2>
+    <p>
+      Les données que vous générez AUJOURD'HUI seront décryptables 
+      par les ordinateurs quantiques de DEMAIN.<br>
+      Sauf si elles n'ont <strong>AUCUN SENS</strong>.
+    </p>
+    <a href="#pricing" class="btn-primary">HARVEST NOW, DECRYPT NEVER</a>
   </section>
 
-  <section class="cta">
-    <h2>PRÊT À DEVENIR <span>INVISIBLE</span> ?</h2>
-    <p>Rejoignez ceux qui refusent d'être traqués, bloqués ou censurés. Votre liberté commence maintenant.</p>
-    <div class="download-buttons">
-      <a href="https://github.com/asemantix/pip-vpn/releases" class="download-btn" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M3 12V6.75l6-1.32v6.48L3 12zm17-9v8.75l-10 .15V5.21L20 3zM3 13l6 .09v6.81l-6-1.15V13zm17 .25V22l-10-1.91V13.1l10 .15z"/></svg>
-        <div class="download-info">
-          <div class="platform">WINDOWS</div>
-          <div class="action">Télécharger</div>
-        </div>
-      </a>
-      <a href="#" class="download-btn" style="opacity: 0.5; cursor: not-allowed;">
-        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        <div class="download-info">
-          <div class="platform">macOS</div>
-          <div class="action">Bientôt</div>
-        </div>
-      </a>
-      <a href="#" class="download-btn" style="opacity: 0.5; cursor: not-allowed;">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c1.03.13 2 .45 2.87.93H13v-.93zM13 7h5.24c.25.31.48.65.68 1H13V7zm0 3h6.74c.08.33.15.66.19 1H13v-1zm0 9.93V19h2.87c-.87.48-1.84.8-2.87.93zM18.24 17H13v-1h5.92c-.2.35-.43.69-.68 1zm1.5-3H13v-1h6.93c-.04.34-.11.67-.19 1z"/></svg>
-        <div class="download-info">
-          <div class="platform">LINUX</div>
-          <div class="action">Bientôt</div>
-        </div>
-      </a>
-    </div>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
     <div class="footer-content">
       <div class="footer-logo">PIP VPN</div>
       <div class="footer-links">
-        <a href="https://asemantix.tech" target="_blank">ASEMANTIX</a>
+        <a href="https://asemantix.tech">ASEMANTIX</a>
         <a href="mailto:asemantix@proton.me">CONTACT</a>
-        <a href="https://github.com/asemantix/pip-vpn" target="_blank">GITHUB</a>
+        <a href="https://asemantix.tech/brevets.html">BREVETS</a>
       </div>
-      <div class="footer-copy">© 2026 AION ASEMANTIX • Brevet FR2600251 • Made in France 🇫🇷</div>
+      <div class="footer-copy">© 2026 AION ASEMANTIX™ — HARVEST NOW, DECRYPT NEVER.</div>
     </div>
   </footer>
+
+  <!-- Script Demo Interactive -->
+  <script>
+    let demoConnected = false;
+    let demoInterval = null;
+    let countdown = 30;
+
+    const servers = [
+      { name: '🇪🇺 Europe', ip: '185.42' },
+      { name: '🇺🇸 US East', ip: '44.198' },
+      { name: '🇯🇵 Asie', ip: '103.75' },
+      { name: '🇺🇸 US West', ip: '52.12' }
+    ];
+    let currentServer = 0;
+
+    function randomIP(prefix) {
+      return prefix + '.' + Math.floor(Math.random() * 255) + '.xxx';
+    }
+
+    function toggleDemo() {
+      if (demoConnected) {
+        disconnectDemo();
+      } else {
+        connectDemo();
+      }
+    }
+
+    function connectDemo() {
+      demoConnected = true;
+      countdown = 30;
+      currentServer = 0;
+
+      document.getElementById('demoRingOuter').classList.add('connected');
+      document.getElementById('demoRingMiddle').classList.add('connected');
+      document.getElementById('demoRingInner').classList.add('connected');
+      document.getElementById('demoCenter').classList.add('connected');
+      document.getElementById('demoStatus').classList.add('connected');
+      document.getElementById('demoStatus').textContent = 'CONNECTÉ — PROTÉGÉ';
+      document.getElementById('demoIpDisplay').classList.add('visible');
+
+      updateDemoDisplay();
+
+      demoInterval = setInterval(() => {
+        countdown--;
+        document.getElementById('demoCountdown').textContent = countdown;
+
+        if (countdown <= 0) {
+          countdown = 30;
+          currentServer = (currentServer + 1) % servers.length;
+          updateDemoDisplay();
+        }
+      }, 1000);
+    }
+
+    function disconnectDemo() {
+      demoConnected = false;
+      clearInterval(demoInterval);
+
+      document.getElementById('demoRingOuter').classList.remove('connected');
+      document.getElementById('demoRingMiddle').classList.remove('connected');
+      document.getElementById('demoRingInner').classList.remove('connected');
+      document.getElementById('demoCenter').classList.remove('connected');
+      document.getElementById('demoStatus').classList.remove('connected');
+      document.getElementById('demoStatus').textContent = 'CLIQUEZ POUR CONNECTER';
+      document.getElementById('demoIpDisplay').classList.remove('visible');
+      document.getElementById('demoCountdown').textContent = '30';
+    }
+
+    function updateDemoDisplay() {
+      const server = servers[currentServer];
+      document.getElementById('demoIp').textContent = randomIP(server.ip);
+      document.getElementById('demoRelay').textContent = server.name;
+
+      // Flash effect
+      document.getElementById('demoIp').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('demoIp').style.opacity = '1';
+      }, 150);
+    }
+  </script>
+
 </body>
 </html>
