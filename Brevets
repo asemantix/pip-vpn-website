@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brevets — AION ASEMANTIX™</title>
+    <meta name="description" content="Portfolio de brevets AION ASEMANTIX — Communications asémantiques, identifiants polymorphes, temps énergétique. Technologie brevetée française.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyan: #00ffff;
+            --green: #00ff88;
+            --magenta: #ff0080;
+            --orange: #ffaa00;
+            --bg: #060a0f;
+            --bg-card: rgba(0, 20, 30, 0.7);
+            --border: rgba(0, 255, 255, 0.15);
+            --text: #e8edf3;
+            --text-dim: rgba(255,255,255,0.55);
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        .bg-grid {
+            position: fixed; inset:0; pointer-events: none; z-index:0;
+            background-image:
+                linear-gradient(rgba(0,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .glow-top {
+            position: fixed; top:-200px; left:50%; transform:translateX(-50%);
+            width:800px; height:600px; border-radius:50%;
+            background: radial-gradient(circle, rgba(0,255,255,0.08) 0%, transparent 70%);
+            pointer-events: none; z-index:0;
+        }
+
+        /* Header */
+        header {
+            position: relative; z-index:2;
+            max-width: 1100px; margin: 0 auto;
+            padding: 40px 30px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo-title {
+            font-size: 28px; font-weight: 900; letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--cyan), var(--green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .logo-sub { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
+        .header-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; color: var(--cyan);
+            background: rgba(0,255,255,0.08); border: 1px solid rgba(0,255,255,0.25);
+            padding: 6px 14px; border-radius: 4px;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative; z-index:2;
+            max-width: 1100px; margin: 0 auto;
+            padding: 60px 30px 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 54px); font-weight: 900;
+            letter-spacing: 2px; margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 30%, var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 17px; color: var(--text-dim); max-width: 750px; margin: 0 auto 30px;
+            font-weight: 300;
+        }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 36px; font-weight: 700; color: var(--cyan);
+        }
+        .stat-label { font-size: 11px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+
+        /* Navigation catégories */
+        .cat-nav {
+            position: sticky; top: 0; z-index: 10;
+            background: rgba(6,10,15,0.92); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        .cat-nav-inner {
+            max-width: 1100px; margin: 0 auto; padding: 0 30px;
+            display: flex; gap: 8px; overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .cat-nav-inner::-webkit-scrollbar { display: none; }
+        .cat-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; letter-spacing: 1px; white-space: nowrap;
+            padding: 7px 16px; border-radius: 4px;
+            border: 1px solid var(--border); background: transparent;
+            color: var(--text-dim); cursor: pointer; transition: all 0.2s;
+        }
+        .cat-btn:hover, .cat-btn.active {
+            color: var(--cyan); border-color: var(--cyan);
+            background: rgba(0,255,255,0.08);
+        }
+
+        /* Patent Grid */
+        .patents-container {
+            position: relative; z-index: 2;
+            max-width: 1100px; margin: 0 auto;
+            padding: 40px 30px 80px;
+        }
+        .category-heading {
+            font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--cyan); font-weight: 600;
+            margin: 50px 0 20px; padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .category-heading:first-child { margin-top: 0; }
+
+        .patent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 30px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+        .patent-card:hover {
+            border-color: rgba(0,255,255,0.4);
+            transform: translateY(-2px);
+        }
+        .patent-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            gap: 16px; margin-bottom: 14px; flex-wrap: wrap;
+        }
+        .patent-ref {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; color: var(--orange);
+            background: rgba(255,170,0,0.1); border: 1px solid rgba(255,170,0,0.25);
+            padding: 3px 10px; border-radius: 3px; white-space: nowrap;
+        }
+        .patent-name {
+            font-size: 22px; font-weight: 800; letter-spacing: 1px;
+            color: #fff;
+        }
+        .patent-usp {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; color: var(--green);
+            background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2);
+            padding: 4px 12px; border-radius: 3px;
+            margin-bottom: 14px;
+        }
+        .patent-abstract {
+            font-size: 14.5px; color: var(--text-dim); line-height: 1.75;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            position: relative; z-index: 2;
+            text-align: center; padding: 40px 30px;
+            border-top: 1px solid var(--border);
+            font-size: 12px; color: var(--text-dim);
+        }
+        footer a { color: var(--cyan); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 12px; text-align: center; }
+            .hero-stats { gap: 24px; }
+            .patent-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="glow-top"></div>
+
+<header>
+    <div>
+        <a href="https://asemantix.tech" style="text-decoration:none;"><div class="logo-title">AION ASEMANTIX</div></a>
+        <div class="logo-sub">Portefeuille de brevets</div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+        <a href="https://asemantix.tech" style="font-size:11px;color:var(--cyan);text-decoration:none;border:1px solid var(--border);padding:6px 14px;border-radius:4px;">← ACCUEIL</a>
+        <a href="https://asemantix.tech/la-pieuvre.html" style="font-size:11px;color:#c9a962;text-decoration:none;border:1px solid rgba(201,169,98,0.3);padding:6px 14px;border-radius:4px;">🐙 LA PIEUVRE</a>
+        <a href="https://asemantix.tech/tute.html" style="font-size:11px;color:#00ffaa;text-decoration:none;border:1px solid rgba(0,255,170,0.3);padding:6px 14px;border-radius:4px;">TUTE τ</a>
+        <div class="header-badge">33 BREVETS · FR · 2025</div>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>BREVETS</h1>
+    <p>Écosystème complet de communications asémantiques, d'identifiants polymorphes et de temps énergétique. Chaque brevet décrit une brique indépendante. Ensemble, ils forment une architecture souveraine de bout en bout.</p>
+    <div class="hero-stats">
+        <div class="stat"><div class="stat-num">33</div><div class="stat-label">Brevets déposés</div></div>
+        <div class="stat"><div class="stat-num">7</div><div class="stat-label">Familles technologiques</div></div>
+        <div class="stat"><div class="stat-num">FR</div><div class="stat-label">Juridiction</div></div>
+    </div>
+</section>
+
+<!-- SAVOIR-FAIRE : Résumé de l'écosystème -->
+<section style="position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 30px 30px;">
+    <div style="background:linear-gradient(135deg, rgba(0,255,255,0.06), rgba(0,255,136,0.04));border:1px solid rgba(0,255,255,0.2);border-radius:12px;padding:34px 36px;">
+        <h2 style="font-size:18px;font-weight:800;letter-spacing:2px;color:var(--cyan);margin-bottom:18px;">SAVOIR-FAIRE — LE PARADIGME DE LA PIEUVRE</h2>
+        <p style="font-size:15px;color:var(--text-dim);line-height:1.85;margin-bottom:16px;">
+            Là où la sécurité conventionnelle tisse des toiles — structurées, reconnaissables, balayées au moindre coup de vent — AION ASEMANTIX adopte le paradigme de la pieuvre : <strong style="color:#fff;">camouflage instantané, changement de texture et de couleur en moins d'une seconde</strong>, indétectable dans son environnement.
+        </p>
+        <p style="font-size:15px;color:var(--text-dim);line-height:1.85;margin-bottom:16px;">
+            Cet écosystème de 33 brevets repose sur <strong style="color:#fff;">cinq piliers fondamentaux</strong> :
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:18px;">
+            <div style="background:rgba(0,20,30,0.6);border:1px solid var(--border);border-radius:8px;padding:18px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);margin-bottom:6px;">01 — ASÉMANTICITÉ</div>
+                <div style="font-size:13.5px;color:var(--text-dim);line-height:1.7;">Aucune métadonnée, aucune structure, aucune signature. Chaque fragment est indistinguable du bruit aléatoire. Capter vos données revient à détenir la clé d'un coffre-fort vide — sans savoir à qui il appartient.</div>
+            </div>
+            <div style="background:rgba(0,20,30,0.6);border:1px solid var(--border);border-radius:8px;padding:18px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);margin-bottom:6px;">02 — MARQUEURS POLYMORPHES</div>
+                <div style="font-size:13.5px;color:var(--text-dim);line-height:1.7;">Chaque fragment porte un marqueur dont la configuration change à chaque index. Le récepteur rejette 99% du bruit sans aucun calcul cryptographique — un gain computationnel phénoménal pour les dispositifs contraints.</div>
+            </div>
+            <div style="background:rgba(0,20,30,0.6);border:1px solid var(--border);border-radius:8px;padding:18px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);margin-bottom:6px;">03 — PERMUTATION IP POLYMORPHIQUE</div>
+                <div style="font-size:13.5px;color:var(--text-dim);line-height:1.7;">Les identifiants réseau (IP, ports, MAC) permutent de façon cryptographiquement non corrélable. Aucun observateur ne peut lier deux sessions successives — la session n'existe tout simplement pas.</div>
+            </div>
+            <div style="background:rgba(0,20,30,0.6);border:1px solid var(--border);border-radius:8px;padding:18px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--magenta);margin-bottom:6px;">04 — CANAUX BRUTS HOSTILES</div>
+                <div style="font-size:13.5px;color:var(--text-dim);line-height:1.7;">L'architecture fonctionne sur tout canal physique — radio, optique, acoustique, IP. Agnostique au transport, tolérante à l'extrême latence. Des communications tactiques terrestres à Mars.</div>
+            </div>
+            <div style="background:rgba(0,20,30,0.6);border:1px solid var(--border);border-radius:8px;padding:18px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00ffaa;margin-bottom:6px;">05 — TEMPS THERMODYNAMIQUE (TUTE)</div>
+                <div style="font-size:13.5px;color:var(--text-dim);line-height:1.7;">τ = E/P — une horloge fondée sur l'irréversibilité de la dissipation d'énergie. Indépendante de tout serveur externe (GPS, NTP), infalsifiable par les lois de la physique. Base de synchronisation, d'ordonnancement et de sécurité temporelle.</div>
+            </div>
+        </div>
+        <p style="font-size:13px;color:var(--text-dim);line-height:1.7;font-style:italic;">
+            Les applications vont de la messagerie stratégique confidentialité (partage de secret hors bande requis) aux systèmes de commande IoT/drones, en passant par les transactions financières asémantiques, les OS post-quantiques et l'optimisation de réseaux énergétiques.
+        </p>
+    </div>
+</section>
+
+<nav class="cat-nav">
+    <div class="cat-nav-inner">
+        <button class="cat-btn active" onclick="showAll()">TOUS</button>
+        <button class="cat-btn" onclick="filter('core')">CŒUR ASÉMANTIQUE</button>
+        <button class="cat-btn" onclick="filter('messaging')">MESSAGERIE</button>
+        <button class="cat-btn" onclick="filter('network')">RÉSEAU & VPN</button>
+        <button class="cat-btn" onclick="filter('identity')">IDENTITÉ & ANONYMAT</button>
+        <button class="cat-btn" onclick="filter('security')">SÉCURITÉ & AUTH</button>
+        <button class="cat-btn" onclick="filter('energy')">TEMPS ÉNERGÉTIQUE</button>
+        <button class="cat-btn" onclick="filter('systems')">OS & SYSTÈMES</button>
+    </div>
+</nav>
+
+<div class="patents-container">
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- CŒUR ASÉMANTIQUE                       -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="core" data-cat="core">🧬 Cœur Asémantique — Fondations</h2>
+
+    <div class="patent-card" data-cat="core">
+        <div class="patent-header">
+            <div class="patent-name">CAMÉLÉON</div>
+            <div class="patent-ref">FR2516793</div>
+        </div>
+        <div class="patent-usp">Filtrage polymorphe : 99% du bruit rejeté sans calcul cryptographique</div>
+        <p class="patent-abstract">Procédé de validation de portions utiles asémantiques sur canal hostile. Chaque portion utile (≥ 256 bits) est construite par fonction pseudo-aléatoire avec forçage d'un marqueur polymorphe M(j) dont les positions et valeurs changent à chaque index. Le récepteur filtre le flux reçu en vérifiant les bits du marqueur — rejetant plus de 99% du bruit sans aucun calcul cryptographique — puis ne valide que les rares candidats par recomputation complète. La portion utile est indistinguable d'une séquence aléatoire : ni en-tête, ni identifiant, ni horodatage, ni signature. Anti-rejeu par ancre monotone non réinitialisable. S'applique à tout canal physique.</p>
+    </div>
+
+    <div class="patent-card" data-cat="core">
+        <div class="patent-header">
+            <div class="patent-name">VCH — Validation par Chaînage d'Historique</div>
+            <div class="patent-ref">FR2600203</div>
+        </div>
+        <div class="patent-usp">Intégrité et ordonnancement garantis sans aucune métadonnée de séquence transmise</div>
+        <p class="patent-abstract">Procédé de validation par chaînage d'états successifs d'un registre ou d'une communication. Un engagement de chaîne C_i est maintenu localement et un élément de validation V_i est généré selon diverses variantes (MAC, troncature, signature, preuve ZK, hybride). Aucun index, compteur ou horodatage n'est transmis. Le récepteur valide par recomputation locale. Anti-rejeu et anti-rollback natifs.</p>
+    </div>
+
+    <div class="patent-card" data-cat="core">
+        <div class="patent-header">
+            <div class="patent-name">ANCHORS — Resynchronisation par Code d'Ancre</div>
+            <div class="patent-ref">FR2600207</div>
+        </div>
+        <div class="patent-usp">Resynchronisation sans serveur, sans horloge, sans infrastructure réseau</div>
+        <p class="patent-abstract">Procédé de resynchronisation d'un mécanisme cryptographique à évolution unidirectionnelle. Un code d'ancre A(i) est dérivé d'un état local et présenté via canal hors réseau (QR, NFC, mnémonique, audio, serveur backup chiffré). Le second dispositif valide par recomputation locale. Trois modes : GenesisAnchor (réinitialisation), RetroAnchor (rattrapage), JumpAnchor (saut). Applications : messagerie, IoT, paiement, authentification.</p>
+    </div>
+
+    <div class="patent-card" data-cat="core">
+        <div class="patent-header">
+            <div class="patent-name">RPAG — Communication Polymorphique Autonome Clockless</div>
+            <div class="patent-ref">FR2600021</div>
+        </div>
+        <div class="patent-usp">Synchronisation de registres distribués sans horloge, sans compteur, sans signalisation</div>
+        <p class="patent-abstract">Procédé de communication polymorphique autonome pour synchroniser des registres distribués sémantiques entre dispositifs. À partir d'une graine partagée une seule fois hors bande, chaque dispositif dérive localement des graines successives et des identifiants polymorphes utilisés comme paramètres de rendu (fréquence radio, slot optique, masque QR). Le fragment asémantique est validé par recomputation locale et égalité stricte, sans horloge ni compteur. Applications : communications Terre–Mars, blackouts urbains, réseaux tactiques.</p>
+    </div>
+
+    <div class="patent-card" data-cat="core">
+        <div class="patent-header">
+            <div class="patent-name">Orchestrateur — Transport Asémantique Adaptatif</div>
+            <div class="patent-ref">FR (dépôt 2025)</div>
+        </div>
+        <div class="patent-usp">Orchestration multi-chemins sans métadonnées temporelles, agnostique au canal</div>
+        <p class="patent-abstract">Procédé d'orchestration adaptative de transport asémantique sur canaux bruts hétérogènes (TCP/IP, TLS, radio, optique, acoustique). Le système agrège des métriques locales (latence, énergie par bit, divergence statistique), dérive un temps thermodynamique local, puis choisit en temps constant une posture d'émission via une primitive cryptographique déterministe. Contraintes conjointes de latence, énergie et divergence. Audit ex post de conformité sans accès aux flux applicatifs.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- MESSAGERIE                              -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="messaging" data-cat="messaging">💬 Messagerie Stratégique</h2>
+
+    <div class="patent-card" data-cat="messaging">
+        <div class="patent-header">
+            <div class="patent-name">OCTOPUS — Messagerie Sécurisée sur Canal Hostile</div>
+            <div class="patent-ref">FR2600020</div>
+        </div>
+        <div class="patent-usp">Messagerie de bout en bout sur transport asémantique — acquittement implicite sans ACK</div>
+        <p class="patent-abstract">Procédé de messagerie sécurisée exploitant une couche de transport asémantique où les portions utiles sont indistinguables du bruit et dépourvues de métadonnées. La segmentation découpe un message de longueur arbitraire en segments encapsulés dans un header de 4 octets. L'acquittement est implicite via l'avancement de l'ancre monotone du récepteur. Module d'audit scellé optionnel avec traçabilité sans compromettre la confidentialité. Supporte point-à-point, groupe et broadcast. Deux profils : WHISPER (confidentiel) et COMPLIANT (auditable), identiques sur le canal.</p>
+    </div>
+
+    <div class="patent-card" data-cat="messaging">
+        <div class="patent-header">
+            <div class="patent-name">MAILBOX — Boîte aux Lettres Asémantique</div>
+            <div class="patent-ref">FR2600019</div>
+        </div>
+        <div class="patent-usp">Dead drop numérique : le serveur ne peut distinguer messages valides du bruit</div>
+        <p class="patent-abstract">Procédé de messagerie asynchrone par boîte aux lettres. L'espace de stockage partagé reçoit des fragments de taille constante, indistinguables du bruit, sans métadonnées. Le serveur ne peut ni identifier les messages valides, ni associer un fragment à un expéditeur ou destinataire — il se limite à STORE, LIST, PURGE. Chaque destinataire filtre localement avec un marqueur polymorphe caché : 99% des fragments rejetés sans crypto. Point-à-point et groupe sur un même mur indifférencié. Applications : messagerie résistante à la censure, dead drops numériques, réseaux intermittents.</p>
+    </div>
+
+    <div class="patent-card" data-cat="messaging">
+        <div class="patent-header">
+            <div class="patent-name">SÉSAME — Commande et Contrôle sur Canal Hostile</div>
+            <div class="patent-ref">FR2600010</div>
+        </div>
+        <div class="patent-usp">Commande de dispositifs contraints avec filtrage à 99% du bruit — économie d'énergie critique</div>
+        <p class="patent-abstract">Procédé de commande et contrôle de dispositifs IoT / capteurs / drones sur canal hostile. Les commandes sont des portions utiles asémantiques indistinguables du bruit. Le dispositif filtre le flux entrant : 99% rejeté sans crypto, seuls ~0.2% subissent une validation complète. Anti-rejeu par ancre monotone. Modes uni/bidirectionnel, groupes de dispositifs, hiérarchie de commandes (normal, privilégié, urgence), audit des exécutions. Applications : contrôle d'accès, drones, SCADA, IoT industriel, dispositifs médicaux.</p>
+    </div>
+
+    <div class="patent-card" data-cat="messaging">
+        <div class="patent-header">
+            <div class="patent-name">BLACKBOX — Restitution Locale View-Once</div>
+            <div class="patent-ref">FR2600204</div>
+        </div>
+        <div class="patent-usp">Double contrôle local pour contenu view-once — fonctionne entièrement hors ligne</div>
+        <p class="patent-abstract">Procédé de contrôle d'accès à la restitution de contenus chiffrés sur dispositif hors ligne. Double contrôle strictement local : secret d'appareil scellé (SE/TPM/TEE) + facteur humain à usage unique non stocké. Attestation de fraîcheur sans métadonnée transmise. Restitution view-once via chemin d'affichage protégé, suivie d'un effacement sécurisé avec preuve cryptographique. Anti-rollback par avance d'index monotone scellée. Fonctionne sans réseau, sans accusé de réception, sans indicateur observable.</p>
+    </div>
+
+    <div class="patent-card" data-cat="messaging">
+        <div class="patent-header">
+            <div class="patent-name">PHOENIX — Reprise Automatique de Session</div>
+            <div class="patent-ref">FR2600311</div>
+        </div>
+        <div class="patent-usp">Reprise de session cryptographique sans serveur, sans retransmission d'état, sans renégociation</div>
+        <p class="patent-abstract">Procédé de reprise automatique de session cryptographique à ratchet après interruption. Chaque dispositif maintient une fenêtre glissante de points de reprise dérivés du ratchet. Après interruption, un jeton de résurrection est généré — il ne contient pas l'état de session et ne permet pas de le reconstruire, mais sert de clé de recherche. Le destinataire identifie le checkpoint commun par recomputation locale. Reprise sans serveur central, sans retransmission d'état, sans nouveau provisionnement, sans nouveau protocole d'établissement de clés.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- RÉSEAU & VPN                            -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="network" data-cat="network">🌐 Réseau & VPN</h2>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">PIP — Permutation d'Identifiants Polymorphes (Élargi)</div>
+            <div class="patent-ref">FR2600202</div>
+        </div>
+        <div class="patent-usp">Identifiants réseau non corrélables — l'observateur ne peut lier deux échanges successifs</div>
+        <p class="patent-abstract">Procédé de communication à identifiants réseau non corrélables par permutation polymorphe. Le mode préféré utilise un ratchet cryptographique local avec graine partagée hors bande et ancre monotone, sans horloge externe ni serveur. Couvre : adresses IP, ports, MAC, identifiants mobiles, IoT, ou toute combinaison. Variantes : synchronisation temporelle, échange chiffré, coordinateur/blockchain, table pré-partagée, négociation crypto, hybride. Session non observable avec non-corrélabilité cryptographique, statistique et comportementale. Extensions post-quantiques, satellite, steganographie.</p>
+    </div>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">PIP VPN — VPN Asémantique</div>
+            <div class="patent-ref">FR2600251</div>
+        </div>
+        <div class="patent-usp">VPN à identifiants non corrélables — rotation cryptographique, pas de signature protocolaire</div>
+        <p class="patent-abstract">Procédé de réseau privé virtuel à identifiants réseau non corrélables. Client et points de sortie coordonnent des identifiants (IP, ports, SNI) qui permutent de façon cryptographiquement non corrélable. Trafic encapsulé sans signature protocolaire, pouvant imiter HTTPS, QUIC, WebSocket. Contre-mesures statistiques (padding, chaff, timing) et adversariales (anti-ML). Pool d'adresses diversifié (cloud, CDN, résidentielles) et bascule transparente entre exits. Applications : contournement de censure, entreprise, journalistes, IoT, véhicules connectés.</p>
+    </div>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">BRIDGE — Validation Conjointe Fragment + Identifiant</div>
+            <div class="patent-ref">FR2600280</div>
+        </div>
+        <div class="patent-usp">Double validation simultanée — résistance aux attaques hybrides injection + usurpation</div>
+        <p class="patent-abstract">Procédé de communication sécurisée où, pour chaque fragment, un identifiant réseau changeant et un marqueur polymorphe sont dérivés du même index j issu d'une ancre monotone unique. La validation exige la vérification conjointe et simultanée de la conformité du fragment au marqueur ET de la correspondance de l'identifiant réseau — pour le même index. Résistance renforcée contre les attaques hybrides combinant injection de fragments et usurpation d'identifiants.</p>
+    </div>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">PONT CHRONOS / PIP VPN CLOAK</div>
+            <div class="patent-ref">FR2600323</div>
+        </div>
+        <div class="patent-usp">Triple protection indexée sur le temps thermodynamique : identifiants + comportement + timing</div>
+        <p class="patent-abstract">Procédé de communication sécurisée au travers d'un tunnel chiffré, dans lequel un temps thermodynamique τ_th (calculé à partir de l'énergie consommée) sert de référentiel commun pour : la dérivation d'identifiants réseau non corrélables, la segmentation en fenêtres de contrôle comportemental, et la coordination des transitions entre profils et identifiants. Trois couches combinées : CHRONOS (temps), PIP (identifiants polymorphes), CLOAK (mimétisme comportemental). Protection simultanée contre la détection ML, la corrélation d'identifiants et la corrélation temporelle, sans horloge externe.</p>
+    </div>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">CLOAK — Mimétisme Comportemental</div>
+            <div class="patent-ref">FR2600321</div>
+        </div>
+        <div class="patent-usp">Indistinguabilité statistique du trafic VPN par rapport à un service légitime (streaming, jeu, visio)</div>
+        <p class="patent-abstract">Procédé de réduction de la détectabilité d'un tunnel chiffré par analyse de trafic. Sélection d'un profil comportemental cible (streaming, visioconférence, jeu interactif) avec contraintes sur la distribution de tailles de paquets, intervalles d'émission et ratio directionnel. Application de transformations (temporisation, bourrage, trafic factice) avec boucle fermée de contrôle par score d'écart Kolmogorov–Smirnov. Se distingue des obfuscations protocolaires : opère au niveau du comportement de service avec critère formel d'indistinguabilité statistique et adaptation continue.</p>
+    </div>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">QUANTUM — PIP Post-Quantique</div>
+            <div class="patent-ref">FR2600313</div>
+        </div>
+        <div class="patent-usp">Identifiants polymorphes à sécurité inconditionnelle — résistance au « store now, decrypt later »</div>
+        <p class="patent-abstract">Procédé de communication à identifiants polymorphes initialisés par distribution quantique de clés (QKD). La clé quantique K_Q est établie par QKD, puis une graine de permutation est dérivée pour initialiser un protocole PIP clockless avec ratchet unidirectionnel et fenêtre glissante. Les identifiants héritent de la sécurité inconditionnelle de la source quantique. Protection du contenu ET du graphe de communication, avec résistance au « store-now-decrypt-later » pour les métadonnées de routage, même face à un ordinateur quantique.</p>
+    </div>
+
+    <div class="patent-card" data-cat="network">
+        <div class="patent-header">
+            <div class="patent-name">PIP SATELLITE MULTIRÉSEAUX</div>
+            <div class="patent-ref">FR2600716</div>
+        </div>
+        <div class="patent-usp">Non-corrélabilité inter-constellations — un observateur multi-réseaux ne peut relier les sessions</div>
+        <p class="patent-abstract">Procédé de communication via une pluralité de constellations satellitaires (LEO, MEO, GEO, HAPS) et réseaux terrestres (5G, WiFi, IoT, mesh). Le terminal dérive d'une graine maîtresse une graine spécifique par réseau. Chaque réseau valide les identifiants avec sa seule graine, sans pouvoir dériver ceux des autres réseaux. Probabilité de corrélation inter-réseaux inférieure à 2⁻¹²⁸ sans la graine maîtresse. Handover aveugle entre constellations, fragmentation asémantique multi-constellations. Applications : maritime, aérien, zones blanches, défense, nomadisme numérique.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- IDENTITÉ & ANONYMAT                     -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="identity" data-cat="identity">👻 Identité & Anonymat</h2>
+
+    <div class="patent-card" data-cat="identity">
+        <div class="patent-header">
+            <div class="patent-name">PIP GHOST — Dispositif Fantôme</div>
+            <div class="patent-ref">FR2600240</div>
+        </div>
+        <div class="patent-usp">Dispositif non traçable communiquant avec des destinations arbitraires — sans coordination préalable</div>
+        <p class="patent-abstract">Procédé rendant un dispositif non traçable et non corrélable sur un réseau, y compris vers des destinations qui ne coopèrent pas. Identifiants distincts pour chaque échange (IP, MAC, ports, identifiants mobiles). Mécanisme d'association unilatéral pour recevoir les réponses malgré les changements d'identifiants. Trois modes : autonome (ratchet local), cloud (IP distincte par requête), hybride. Le résultat est un dispositif fantôme dont un observateur ne peut corréler les échanges successifs. Applications : anti-tracking, VPN nouvelle génération, IoT anonyme, anti-censure.</p>
+    </div>
+
+    <div class="patent-card" data-cat="identity">
+        <div class="patent-header">
+            <div class="patent-name">HYDRA — Identités Réseau Multiples</div>
+            <div class="patent-ref">FR2600333</div>
+        </div>
+        <div class="patent-usp">Plusieurs identités réseau actives simultanément sur un seul dispositif — non corrélables entre elles</div>
+        <p class="patent-abstract">Procédé de gestion d'identités réseau multiples simultanées et non corrélables sur un unique dispositif. Chaque identité possède sa propre graine cryptographique, son contexte réseau isolé et un mécanisme d'évolution indépendant. Décorrélation active inter-identités (temporelle, volumétrique, ordonnancement) dérivée des graines. Isolation cryptographique garantissant l'absence d'état partagé. Applications : séparation vie privée/professionnelle, protection de sources, compartimentage entreprise, IoT multi-rôles.</p>
+    </div>
+
+    <div class="patent-card" data-cat="identity">
+        <div class="patent-header">
+            <div class="patent-name">SHADOW CROWD — Anonymat Collectif</div>
+            <div class="patent-ref">FR2600341</div>
+        </div>
+        <div class="patent-usp">Le groupe entier génère du trafic statistiquement indifférenciable — sans serveur de mélange</div>
+        <p class="patent-abstract">Procédé d'anonymat collectif pour un groupe de dispositifs. Un profil de référence commun (inter-arrivées, tailles, volumes, taux, rafales) est défini par un paramètre de groupe Ω. Chaque dispositif dérive ses propres règles de génération de trafic (réel + factice) à partir d'un paramètre propre Π(m) et d'un paramètre d'évolution T(n). Décorrélation active inter-membres : des paramètres distincts produisent des règles différentes tout en satisfaisant le profil commun. L'attribution de flux individuels à un dispositif particulier est rendue extrêmement difficile, sans serveurs de mélange dédiés.</p>
+    </div>
+
+    <div class="patent-card" data-cat="identity">
+        <div class="patent-header">
+            <div class="patent-name">FANTOM INTERNET — Connexion Anonyme Sans Infrastructure</div>
+            <div class="patent-ref">FR2600506</div>
+        </div>
+        <div class="patent-usp">Accès Internet sans box, sans identifiant stable, sans tiers de confiance, non géolocalisable</div>
+        <p class="patent-abstract">Système de connexion Internet anonyme sans infrastructure fixe. Terminal multi-connectivité (4G/5G/6G, satellite LEO/MEO/GEO, WiFi, mesh) avec module de permutation d'identifiants changeant automatiquement IP, MAC, IMSI, identifiants satellite. Échanges successifs non corrélables. Aucune box, aucun câble, aucun identifiant stable, aucun tiers de confiance. Abonnement anonyme possible avec paiement en cryptomonnaie ou prépayé. Applications : nomades numériques, journalistes, communications de crise, véhicules et drones non traçables.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SÉCURITÉ & AUTHENTIFICATION              -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="security" data-cat="security">🛡️ Sécurité & Authentification</h2>
+
+    <div class="patent-card" data-cat="security">
+        <div class="patent-header">
+            <div class="patent-name">HEIMDALL — Authentification Énergétique</div>
+            <div class="patent-ref">FR2600400</div>
+        </div>
+        <div class="patent-usp">Authentification par signature physique du dispositif — impossible à usurper depuis un autre matériel</div>
+        <p class="patent-abstract">Procédé d'authentification combinant un secret partagé K et un indicateur énergétique local E(t) du dispositif. La signature S(t) = H(Q(E(t)) ∥ K ∥ ctx ∥ n) est vérifiée contre un profil de référence. Un attaquant ayant obtenu le secret ne peut usurper l'identité depuis un matériel distinct. Un attaquant ayant le profil ne peut forger la signature sans le secret. L'authentification est liée aux caractéristiques matérielles physiques du dispositif.</p>
+    </div>
+
+    <div class="patent-card" data-cat="security">
+        <div class="patent-header">
+            <div class="patent-name">SEKHMET — Protection Autonome par Profil Énergétique</div>
+            <div class="patent-ref">FR2600447</div>
+        </div>
+        <div class="patent-usp">Détection et neutralisation autonome de menaces inconnues — y compris rootkits — sans serveur externe</div>
+        <p class="patent-abstract">Procédé de protection d'un dispositif mis en œuvre localement, sans système de détection ou de décision externe. Un profil énergétique de référence (comportement normal) sert de capteur de sécurité interne. Surveillance continue de E(t), détection d'anomalies par écart au profil, identification du processus suspect, application automatique de contre-mesures graduées (suspension, terminaison, isolation). Journal chaîné cryptographiquement pour preuve horodatée infalsifiable. Reconstruction forensique des actions malveillantes par corrélation avec l'activité des périphériques. Détecte menaces connues et inconnues, y compris rootkits.</p>
+    </div>
+
+    <div class="patent-card" data-cat="security">
+        <div class="patent-header">
+            <div class="patent-name">AION PAY — Transaction Financière Asémantique</div>
+            <div class="patent-ref">FR2600514</div>
+        </div>
+        <div class="patent-usp">Paiement indistinguable du bruit — vérifiable sans accès aux données en clair</div>
+        <p class="patent-abstract">Procédé de transaction financière où les données (montant, identités) sont encapsulées en une représentation indistinguable d'un signal aléatoire. Une preuve cryptographique à connaissance nulle atteste de la validité (solde suffisant, authentification émetteur, conservation des montants) sans divulguer le contenu. Le règlement dissimule la relation entrées/sorties via engagements homomorphes. Divulgation sélective optionnelle par chiffrement à base d'attributs pour conformité réglementaire. Anonymat vérifiable.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TEMPS ÉNERGÉTIQUE                        -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="energy" data-cat="energy">⚡ Temps Énergétique — Métriques TUTE</h2>
+
+    <div class="patent-card" data-cat="energy">
+        <div class="patent-header">
+            <div class="patent-name">ENERGYSYNC — Coordination par Indicateur Énergétique</div>
+            <div class="patent-ref">FR2600343</div>
+        </div>
+        <div class="patent-usp">Coordination de groupe sans horloge externe — synchronisation par seuils d'énergie</div>
+        <p class="patent-abstract">Procédé de coordination d'un groupe de dispositifs par indicateur énergétique local E(m), sans horloge externe ni protocole de synchronisation temporelle. Un paramètre de groupe Ω définit une séquence de seuils énergétiques communs. Un paramètre d'évolution T(n) avance lorsque E(m) franchit un seuil. Les dispositifs se coordonnent sur cette base énergétique commune. Applications : capteurs IoT, essaims de drones, véhicules communicants, réseaux distribués dans des environnements sans GPS ni NTP.</p>
+    </div>
+
+    <div class="patent-card" data-cat="energy">
+        <div class="patent-header">
+            <div class="patent-name">TUTE GRID — Optimisation de Réseau Énergétique</div>
+            <div class="patent-ref">FR2600676</div>
+        </div>
+        <div class="patent-usp">Métrique pivot τ_i = E_i / P_nom pour comparer des nœuds énergétiques hétérogènes</div>
+        <p class="patent-abstract">Système d'optimisation d'un réseau énergétique (production, transport, stockage, consommation). Chaque nœud se voit attribuer un temps énergétique réseau τ_i = E_i / P_i,nom, métrique pivot comparable entre nœuds de natures différentes. Prédiction d'évolution des τ_i et détection de risques réseau. Optimisation des consignes de routage d'énergie et de commande en fonction des τ_i et de poids de priorité. Coordination de technologies de stockage et véhicules électriques au sein d'un réseau.</p>
+    </div>
+
+    <div class="patent-card" data-cat="energy">
+        <div class="patent-header">
+            <div class="patent-name">TOKEN TUTE — Dispositif Portable d'Horodatage Énergétique</div>
+            <div class="patent-ref">FR2600671</div>
+        </div>
+        <div class="patent-usp">Horodatage souverain fondé sur les lois de la physique — indépendant de tout serveur externe</div>
+        <p class="patent-abstract">Dispositif portable comprenant une source d'énergie autonome, un module de calcul du temps énergétique τ = E/P, et un élément sécurisé stockant les clés cryptographiques. L'appareil hôte (ordinateur public, terminal emprunté) est réduit au rôle de simple écran — il n'a jamais accès aux clés. Le temps énergétique local fournit une référence temporelle souveraine, indépendante de tout serveur (NTP, GPS). Algorithmes post-quantiques (ML-KEM, ML-DSA, AES-256). Variante avec sonde de courant pour surveillance de l'hôte.</p>
+    </div>
+
+    <div class="patent-card" data-cat="energy">
+        <div class="patent-header">
+            <div class="patent-name">TUTE COMPUTE — Pilotage Prédictif par Métrique Énergétique</div>
+            <div class="patent-ref">FR2503804</div>
+        </div>
+        <div class="patent-usp">Régulation CPU prédictive basée sur le temps énergétique — sans capteurs externes</div>
+        <p class="patent-abstract">Système de calcul informatique utilisant la métrique τ(t) = E(t) / (P(t) + ε) pour ajuster dynamiquement les cycles CPU, prédire les performances et synchroniser des clusters de calcul. Régulation locale et globale des unités de calcul sans capteurs externes, applicable aux systèmes embarqués, distribués ou cloud. La métrique reflète le rendement et la stabilité thermodynamique propre du système.</p>
+    </div>
+
+    <div class="patent-card" data-cat="energy">
+        <div class="patent-header">
+            <div class="patent-name">BATTERIES TUTE — Optimisation Véhicule Électrique</div>
+            <div class="patent-ref">FR2503744</div>
+        </div>
+        <div class="patent-usp">Autonomie restante en temps réel — τ = E/P adapté aux conditions de conduite</div>
+        <p class="patent-abstract">Dispositif logiciel pour véhicule électrique calculant τ = E/P en temps réel (1 Hz) à partir des données BMS. Prend en compte les variations de puissance dues aux accélérations, climatisation, inclinaison, vitesse, arrêts fréquents et toute demande électrique supplémentaire. Le temps énergétique τ représente l'autonomie restante, adapté en continu aux conditions réelles de conduite.</p>
+    </div>
+
+    <div class="patent-card" data-cat="energy">
+        <div class="patent-header">
+            <div class="patent-name">TUTE GÉNÉRALISTE — Dispositif Modulaire Universel</div>
+            <div class="patent-ref">FR2503522</div>
+        </div>
+        <div class="patent-usp">Métrique τ = E/(P+ε) applicable à tout système — simulation cosmologique à IoT</div>
+        <p class="patent-abstract">Dispositif modulaire global pour mesurer, synchroniser et simuler le temps énergétique et l'entropie dans des systèmes physiques, embarqués ou logiciels. Comprend une unité de traitement, une base de données dynamique, une interface logicielle/API/SDK, et un système d'apprentissage évolutif. Applications : simulation cosmologique, navigation autonome, informatique quantique, surveillance environnementale, intelligence artificielle.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- OS & SYSTÈMES                            -->
+    <!-- ═══════════════════════════════════════ -->
+    <h2 class="category-heading" id="systems" data-cat="systems">💻 Systèmes d'Exploitation & Infrastructure</h2>
+
+    <div class="patent-card" data-cat="systems">
+        <div class="patent-header">
+            <div class="patent-name">ORDINATEUR LIQUIDE — Environnement à État Distribué</div>
+            <div class="patent-ref">FR2600673</div>
+        </div>
+        <div class="patent-usp">Votre environnement numérique n'existe sur aucun appareil — il se matérialise à la demande et disparaît sans trace</div>
+        <p class="patent-abstract">Système informatique où l'environnement de l'utilisateur n'existe sur aucun dispositif unique mais sous forme de fragments chiffrés répartis sur un réseau pair-à-pair, indistinguables du bruit. Un dispositif portable personnel (clé maîtresse en élément sécurisé, temps énergétique τ) permet de matérialiser l'environnement temporairement en RAM sur n'importe quel hôte — l'hôte n'a jamais accès aux clés. À la déconnexion, l'environnement se dématérialise sans trace. Identités polymorphiques non corrélables, algorithmes post-quantiques (ML-KEM, ML-DSA).</p>
+    </div>
+
+    <div class="patent-card" data-cat="systems">
+        <div class="patent-header">
+            <div class="patent-name">Q-DOS — Système d'Exploitation Post-Quantique</div>
+            <div class="patent-ref">FR2600578</div>
+        </div>
+        <div class="patent-usp">Chaîne de confiance 100% quantum-safe — du boot au réseau, par design</div>
+        <p class="patent-abstract">Système d'exploitation dont l'ensemble des primitives cryptographiques utilise exclusivement des algorithmes résistants aux attaques quantiques. Q-BOOT : chaîne de confiance par signatures ML-DSA. Q-DISK : clé maître protégée par ML-KEM, secteurs par AES-256-XTS avec clés dérivées par SHAKE256. Q-FILES : chiffrement par fichier et ACL signées. Q-NET : TLS 1.3 hybride. Q-TPM : module de confiance post-quantique. Protection pérenne des données selon le paradigme « quantum-safe by design ».</p>
+    </div>
+
+    <div class="patent-card" data-cat="systems">
+        <div class="patent-header">
+            <div class="patent-name">KERNEL CHRONOS — Noyau à Temps Énergétique</div>
+            <div class="patent-ref">FR2600659</div>
+        </div>
+        <div class="patent-usp">Base de temps fondée sur l'irréversibilité thermodynamique — anti-rollback par les lois de la physique</div>
+        <p class="patent-abstract">Noyau de système d'exploitation utilisant τ = E_dissipée / P_nom comme base de temps logique interne. Cette métrique, intrinsèquement liée à l'irréversibilité thermodynamique, est strictement monotone croissante et utilisée pour l'ordonnancement des tâches, la journalisation, la détection de manipulations temporelles, la protection anti-rollback, l'anti-snapshot des volumes chiffrés et la rotation automatique des clés. Bornage dτ/dt ∈ [r_min, r_max]. Variante entropique τ_S = ∫ P(t)/T(t) dt pour ancrage physique maximal. Sécurité temporelle fondée sur les lois de la physique.</p>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 AION ASEMANTIX™ — Tous droits réservés<br>
+    <a href="https://asemantix.tech">asemantix.tech</a> · Harvest Now, Decrypt NEVER.
+</footer>
+
+<script>
+    function showAll() {
+        document.querySelectorAll('.patent-card, .category-heading').forEach(el => el.style.display = '');
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.cat-btn').classList.add('active');
+    }
+    function filter(cat) {
+        document.querySelectorAll('.patent-card').forEach(el => {
+            el.style.display = el.dataset.cat === cat ? '' : 'none';
+        });
+        document.querySelectorAll('.category-heading').forEach(el => {
+            el.style.display = el.dataset.cat === cat ? '' : 'none';
+        });
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
